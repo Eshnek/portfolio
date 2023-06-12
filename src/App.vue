@@ -12,4 +12,3 @@ import TopBar from "./components/TopBar.vue";
 
   <RouterView />
 </template>
-
