@@ -2,6 +2,9 @@
     <nav>
         <RouterLink to="/">Portfolio</RouterLink>
         <RouterLink to="/about">Resume</RouterLink>
+        <a href="https://github.com/Eshnek" target="_blank">
+            <img src="logos/github/github-mark.svg" alt="Github">
+        </a>
     </nav>
 </template>
 
