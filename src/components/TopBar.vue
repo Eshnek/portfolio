@@ -8,9 +8,12 @@
 <style scoped lang="scss">
 nav {
     width: 100%;
+    height: 64px;
+
     font-size: 12px;
     text-align: center;
-    margin-top: 2rem;
+
+    padding: 16px;
 
     a {
         padding: 8px;
