@@ -29,6 +29,10 @@
         padding: 8px;
         line-height: 0px;
 
+        text-decoration: none;
+        font-size: var(--font-size-top);
+        color: var(--color-text);
+
         img {
             width: 32px;
             height: auto;
