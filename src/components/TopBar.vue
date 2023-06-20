@@ -1,5 +1,5 @@
 <template>
-    <nav>
+    <nav class="top-bar">
         <RouterLink to="/">Portfolio</RouterLink>
         <RouterLink to="/about">Resume</RouterLink>
         <a href="https://github.com/Eshnek" target="_blank">
@@ -9,7 +9,7 @@
 </template>
 
 <style scoped lang="scss">
-nav {
+.top-bar {
     width: 100%;
     height: 64px;
 
@@ -18,8 +18,21 @@ nav {
 
     padding: 16px;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-background-top);
+
     a {
         padding: 8px;
+        line-height: 0px;
+
+        img {
+            width: 32px;
+            height: auto;
+        }
     }
 }
 </style>
