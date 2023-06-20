@@ -1,12 +1,17 @@
 <template>
-    <nav class="top-bar">
-        <RouterLink to="/">Portfolio</RouterLink>
-        <RouterLink to="/about">Resume</RouterLink>
-        <a href="https://github.com/Eshnek" target="_blank">Github</a>
-        <div class="top-right">
-            <Corner />
+    <div class="top-bar">
+        <div class="top-bar-title">
+            Dylan Pozarnsky
         </div>
-    </nav>
+        <nav class="top-bar-content">
+            <RouterLink to="/">Portfolio</RouterLink>
+            <RouterLink to="/about">Resume</RouterLink>
+            <a href="https://github.com/Eshnek" target="_blank">Github</a>
+            <div class="top-right">
+                <Corner />
+            </div>
+        </nav>
+    </div>
 </template>
 
 <script lang="ts">
@@ -19,36 +24,53 @@ export default {
 
 <style scoped lang="scss">
 .top-bar {
-    width: 100%;
     height: 64px;
 
-    font-size: 12px;
-    text-align: center;
-
-    padding: var(--padding-top);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-bottom: var(--border-top);
-    background-color: var(--color-background-top);
-
-    a {
-        padding: var(--padding-top-link);
-        line-height: 0px;
-
-        text-decoration: none;
-        font-size: var(--font-size-top);
-        color: var(--color-text);
-    }
-
-    .top-right {
-        height: inherit;
+    .top-bar-title {
         position: absolute;
-        right: 0; // var(--padding-top-horizontal);
+        left: 0;
+        height: inherit;
 
         display: flex;
         align-items: center;
+        padding-left: var(--padding-top-horizontal);
+
+        font-size: var(--font-size-top-title);
+        color: var(--color-text);
+    }
+
+    .top-bar-content {
+        width: 100%;
+        height: inherit;
+
+        font-size: 12px;
+        text-align: center;
+
+        padding: var(--padding-top);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-bottom: var(--border-top);
+        background-color: var(--color-background-top);
+
+        a {
+            padding: var(--padding-top-link);
+            line-height: 0px;
+
+            text-decoration: none;
+            font-size: var(--font-size-top);
+            color: var(--color-text);
+        }
+
+        .top-right {
+            height: inherit;
+            position: absolute;
+            right: 0; // var(--padding-top-horizontal);
+
+            display: flex;
+            align-items: center;
+        }
     }
 }
 </style>
