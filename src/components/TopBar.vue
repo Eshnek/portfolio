@@ -1,15 +1,16 @@
 <template>
     <div class="top-bar">
         <div class="top-bar-title">
-            Dylan Pozarnsky
+            <a href="/">Dylan Pozarnsky</a>
         </div>
         <nav class="top-bar-content">
             <RouterLink to="/">Portfolio</RouterLink>
-            <RouterLink to="/about">Resume</RouterLink>
+            <a href="/Dylan_Pozarnsky.pdf" target="_blank">Resume</a>
             <a href="https://github.com/Eshnek" target="_blank">Github</a>
             <div class="top-right">
                 <Corner />
             </div>
+            <RouterLink class="contact" to="/contact">Contact</RouterLink>
         </nav>
     </div>
 </template>
@@ -70,6 +71,11 @@ export default {
 
             display: flex;
             align-items: center;
+        }
+
+        .contact {
+            /*position: absolute;
+            right: 64px;*/
         }
     }
 }

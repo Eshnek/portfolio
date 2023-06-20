@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import Landing from "../components/Landing.vue";
+import Portfolio from "../components/Portfolio.vue";
 </script>
 
 <template>
   <main>
-    <Landing />
+    <Portfolio />
   </main>
 </template>
