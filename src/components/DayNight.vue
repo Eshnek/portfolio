@@ -1,6 +1,6 @@
 <template>
     <div class="day-night-picker">
-        <input class="day-night" type="checkbox" />
+        <input v-model="state" class="day-night" type="checkbox" />
 
         <div class="slider" />
         <div class="slider-border" />
@@ -8,7 +8,13 @@
 </template>
 
 <script lang="ts">
-export default {}
+export default {
+    data() {
+        return {
+            state: false as boolean,
+        };
+    }
+}
 </script>
 
 <style scoped lang="scss">
