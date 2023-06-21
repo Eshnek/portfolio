@@ -44,9 +44,9 @@
         />
 
         <Card
-            title="AutoCommit"
+            title="Power Commit"
             description="A Visual Studio Code Extension for performing quick Git commits"
-            link="https://github.com/CitadelStronghold/autocommit"
+            link="https://github.com/CitadelStronghold/power-commit"
         />
     </div>
 </template>
