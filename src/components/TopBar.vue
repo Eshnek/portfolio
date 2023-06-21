@@ -8,7 +8,7 @@
             <a href="/Dylan_Pozarnsky.pdf" target="_blank">Resume</a>
             <a href="https://github.com/Eshnek" target="_blank">Github</a>
             <div class="top-right">
-                <Corner />
+                <Corner link="https://github.com/Eshnek/portfolio" />
             </div>
             <div class="divider" />
             <RouterLink class="contact" to="/contact">Contact</RouterLink>
@@ -80,11 +80,17 @@ export default {
 
         .top-right {
             height: inherit;
-            position: absolute;
-            right: 0; // var(--padding-top-horizontal);
 
             display: flex;
             align-items: center;
+
+            .github-corner {
+                position: absolute;
+                right: 0;
+                top: 0;
+
+                padding: 0;
+            }
         }
 
         .divider {

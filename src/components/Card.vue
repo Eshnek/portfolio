@@ -1,8 +1,11 @@
 <template>
-    <div class="card">
+    <div class="card" :class="cardClass" @click="onClicked">
+        <Corner class="card-corner" v-if="link" :color="1" />
+
         <div class="card-title card-text">
             <h1>{{ title }}</h1>
         </div>
+        <div class="divider" />
         <div class="card-description card-text">
             {{ description }}
         </div>
@@ -10,7 +13,10 @@
 </template>
 
 <script lang="ts">
+import Corner from '@/components/Corner.vue';
+
 export default {
+    components: { Corner },
     props: {
         title: {
             type: String,
@@ -19,6 +25,21 @@ export default {
         description: {
             type: String,
             required: true,
+        },
+
+        link: {
+            type: String,
+            required: false,
+        },
+    },
+    computed: {
+        cardClass() {
+            return this.link ? 'card-linked' : 'card-unlinked';
+        },
+    },
+    methods: {
+        onClicked() {
+            window.open(this.link, '_blank')?.focus();
         },
     },
 }
@@ -44,14 +65,49 @@ export default {
 
     box-shadow: 3px 3px 4px 0px var(--color-shadow-card);
 
+    transition: transform 0.2s ease-in-out;
+    position: relative;
+
+    overflow: hidden;
+
     .card-title {
         margin-bottom: var(--margin-card-title);
     }
+
     .card-text {
         width: 100%;
 
         text-align: center;
         overflow-wrap: break-word;
     }
+
+    .card-corner {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+
+        width: 32px;
+        height: 32px;
+    }
+
+    .divider {
+        width: 100%;
+        height: 1px;
+
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-linked {
+    cursor: pointer;
+}
+
+.card-unlinked {
+    cursor: default;
 }
 </style>

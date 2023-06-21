@@ -1,7 +1,30 @@
 <template>
     <div class="home">
-        <Card title="Match" description="High Performance Log Validator" />
-        <Card title="Gem Linux" description="Arch Linux® Based ISO Distribution" />
+        <Card
+            title="Match"
+            description="High Performance Log Validator"
+            link="https://github.com/CitadelStronghold/match"
+        />
+        <Card
+            title="Gem Linux"
+            description="Arch Linux® Based ISO Distribution"
+            link="https://github.com/CitadelStronghold/gem"
+        />
+        <Card
+            title="C++ Starter"
+            description="Starter C++23 Project with CMake and Ninja"
+            link="https://github.com/Eshnek/starter"
+        />
+        <Card
+            title="TypeList"
+            description="C++ type manipulation header"
+            link="https://github.com/Eshnek/typelist"
+        />
+        <Card
+            title="Format"
+            description="My official clang-format configuration"
+            link="https://github.com/Eshnek/format"
+        />
     </div>
 </template>
 
