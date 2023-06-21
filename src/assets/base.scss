@@ -2,7 +2,7 @@
 :root {
     --color-text: #020202;
     --color-text-inactive: #555;
-    --color-text-active: #020202;
+    --color-text-active: var(--color-text);
 
     --color-background: #f8f8f8;
     --color-background-top: #e8e8e8;
@@ -34,6 +34,24 @@
     //-//
 
     --border-top: 1px solid var(--color-border);
+}
+
+[data-theme="darkMode"] {
+    --color-text: #d9d9d9;
+    --color-text-inactive: #979797;
+    --color-text-active: var(--color-text);
+
+    --color-background: #121212;
+    --color-background-top: #1f1f1f;
+    --color-background-button: #3a3a3a;
+    --color-background-day: #dfc174;
+    --color-background-night: #8e8f91;
+
+    --color-border: #545454;
+    --color-border-active: #70acc7;
+    --color-border-dark: #646464;
+    --color-border-day: #f5e0aa;
+    --color-border-night: #c8c8cf;
 }
 
 *,

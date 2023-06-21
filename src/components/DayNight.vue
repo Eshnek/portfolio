@@ -1,6 +1,6 @@
 <template>
     <div class="day-night-picker">
-        <input v-model="state" class="day-night" type="checkbox" />
+        <input v-model="night" class="day-night" type="checkbox" @input="onToggled" />
 
         <div class="slider" />
         <div class="slider-border" />
@@ -11,8 +11,25 @@
 export default {
     data() {
         return {
-            state: false as boolean,
+            night: true as boolean,
         };
+    },
+    methods: {
+        onToggled(event: any) {
+            this.night = event.target.checked;
+
+            this.apply();
+        },
+
+        apply() {
+            this.applyTheme();
+        },
+        applyTheme() {
+            document.documentElement.setAttribute('data-theme', this.night ? 'darkMode' : '');
+        }
+    },
+    mounted() {
+        this.apply();
     }
 }
 </script>
