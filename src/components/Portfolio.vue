@@ -2,10 +2,10 @@
     <div class="home">
         <Card
             title="Teek"
-            description="Game in development. Uses a proprietary engine written with C++20."
+            description="Game in development. Uses a proprietary engine written with C++20. The game utilizes the ECS design pattern."
             link="https://teek.info"
 
-            :corner="false"
+            :blank="true"
         />
 
         <Card
