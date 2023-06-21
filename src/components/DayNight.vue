@@ -36,7 +36,7 @@ export default {}
         height: 16px;
         border-radius: 100%;
 
-        background-color: rgb(235, 224, 119);
+        background-color: var(--color-background-day);
         transform: translate(-50%, 0%);
         border: 2px solid var(--color-border-day);
         transition: background-color 0.1s ease-in-out, transform 0.1s ease-in-out, border 0.1s ease-in-out;
@@ -45,7 +45,7 @@ export default {}
     }
 
     .day-night:checked~.slider {
-        background-color: rgb(118, 118, 122);
+        background-color: var(--color-background-night);
         transform: translate(50%, 0%);
         border: 2px solid var(--color-border-night);
     }
