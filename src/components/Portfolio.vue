@@ -10,7 +10,7 @@
 
         <Card
             title="DayForm"
-            description="Daily accountability form delivered by text message."
+            description="Daily accountability form delivered by text message. Responses are encrypted client-side using a derived key."
             link="https://dayform.io"
 
             :blank="true"
@@ -26,6 +26,7 @@
             description="Arch Linux® Based ISO Distribution"
             link="https://github.com/CitadelStronghold/gem"
         />
+
         <Card
             title="C++ Starter"
             description="Starter C++23 Project with CMake and Ninja"
@@ -41,6 +42,12 @@
             description="My official clang-format configuration"
             link="https://github.com/Eshnek/format"
         />
+
+        <Card
+            title="AutoCommit"
+            description="A Visual Studio Code Extension for performing quick Git commits"
+            link="https://github.com/CitadelStronghold/autocommit"
+        />
     </div>
 </template>
 
@@ -54,7 +61,7 @@ export default {
 
 <style scoped>
 .home {
-    display: flex;
+    display: grid;
     justify-content: center;
 
     padding: var(--padding-page);
