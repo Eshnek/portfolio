@@ -10,7 +10,7 @@
 
         <Card
             title="DayForm"
-            description="Daily accountability forms delivered by text message."
+            description="Daily accountability form delivered by text message."
             link="https://dayform.io"
 
             :blank="true"
