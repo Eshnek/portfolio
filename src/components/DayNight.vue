@@ -8,10 +8,12 @@
 </template>
 
 <script lang="ts">
+const DEFAULT_DAY: boolean = true;
+
 export default {
     data() {
         return {
-            night: true as boolean,
+            night: !DEFAULT_DAY,
         };
     },
     methods: {
