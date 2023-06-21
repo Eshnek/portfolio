@@ -1,6 +1,14 @@
 <template>
     <div class="home">
         <Card
+            title="Teek"
+            description="Game in development. Uses a proprietary engine written with C++20."
+            link="https://teek.info"
+
+            :corner="false"
+        />
+
+        <Card
             title="Match"
             description="High Performance Log Validator"
             link="https://github.com/CitadelStronghold/match"

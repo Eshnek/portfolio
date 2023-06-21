@@ -1,6 +1,6 @@
 <template>
     <div class="card" :class="cardClass" @click="onClicked">
-        <Corner class="card-corner" v-if="link" :color="1" />
+        <Corner class="card-corner" v-if="link && corner" :color="1" />
 
         <div class="card-title card-text">
             <h1>{{ title }}</h1>
@@ -31,6 +31,11 @@ export default {
             type: String,
             required: false,
         },
+        corner: {
+            type: Boolean,
+            required: false,
+            default: true,
+        }
     },
     computed: {
         cardClass() {
