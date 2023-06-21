@@ -10,17 +10,23 @@
             <div class="top-right">
                 <Corner />
             </div>
-            <div class="divider"></div>
+            <div class="divider" />
             <RouterLink class="contact" to="/contact">Contact</RouterLink>
+            <div class="divider" />
+            <DayNight class="top-element" />
         </nav>
     </div>
 </template>
 
 <script lang="ts">
 import Corner from '@/components/Corner.vue';
+import DayNight from '@/components/DayNight.vue';
 
 export default {
-    components: { Corner },
+    components: {
+        Corner,
+        DayNight
+    },
 }
 </script>
 
@@ -59,7 +65,8 @@ export default {
         border-bottom: var(--border-top);
         background-color: var(--color-background-top);
 
-        a {
+        a,
+        .top-element {
             padding: var(--padding-top-link);
             line-height: 0px;
 
@@ -70,6 +77,7 @@ export default {
             border-bottom: 1px solid transparent;
             margin-bottom: -2px;
         }
+
         .top-right {
             height: inherit;
             position: absolute;
@@ -78,6 +86,7 @@ export default {
             display: flex;
             align-items: center;
         }
+
         .divider {
             height: 60%;
             width: 1px;
@@ -85,6 +94,7 @@ export default {
 
             margin: var(--margin-top-divider);
         }
+
         .contact {
             /*position: absolute;
             right: 64px;*/

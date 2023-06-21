@@ -1,0 +1,65 @@
+<template>
+    <div class="day-night-picker">
+        <input class="day-night" type="checkbox" />
+
+        <div class="slider" />
+        <div class="slider-border" />
+    </div>
+</template>
+
+<script lang="ts">
+export default {}
+</script>
+
+<style scoped lang="scss">
+.day-night-picker {
+    width: 48px;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    input.day-night {
+        position: absolute;
+        height: 24px;
+        width: inherit;
+
+        cursor: pointer;
+
+        opacity: 0;
+        z-index: 1000;
+    }
+
+    .slider {
+        width: 16px;
+        height: 16px;
+        border-radius: 100%;
+
+        background-color: rgb(235, 224, 119);
+        transform: translate(-50%, 0%);
+        border: 2px solid var(--color-border-day);
+        transition: background-color 0.1s ease-in-out, transform 0.1s ease-in-out, border 0.1s ease-in-out;
+
+        z-index: 1;
+    }
+
+    .day-night:checked~.slider {
+        background-color: rgb(118, 118, 122);
+        transform: translate(50%, 0%);
+        border: 2px solid var(--color-border-night);
+    }
+
+    .slider-border {
+        position: absolute;
+        width: 36px;
+        height: 20px;
+
+        border: 1px solid var(--color-border-dark);
+        border-radius: 12px;
+
+        background-color: var(--color-background-button);
+        z-index: 0;
+    }
+}
+</style>
