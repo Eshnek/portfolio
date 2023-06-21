@@ -1,6 +1,7 @@
 <template>
     <div class="home">
-        <Card title="A" description="Bdfdhfdasljk;falsdjk;l;fkdaslfadslk;jfadsl;jkafdslj;kfadslkjfdslkj;afdslkj;afdlsjk;lfakdslk;jafdslkjafds dsfjkfsadjl kfadslj;kf adsl;jkfadslj;k fla dsk;jfl kaj;dsl jk;afdsl kjfads ljk"></Card>
+        <Card title="Match" description="High Performance Log Validator" />
+        <Card title="Gem Linux" description="Arch Linux® Based ISO Distribution" />
     </div>
 </template>
 

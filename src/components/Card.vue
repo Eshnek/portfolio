@@ -27,7 +27,7 @@ export default {
 <style scoped lang="scss">
 .card {
     min-width: 256px;
-    min-height: 128px;
+    min-height: 32px;
     max-width: 512px;
     max-height: 1024px;
 
@@ -40,11 +40,12 @@ export default {
     background-color: var(--color-background-card);
 
     padding: var(--padding-card);
+    margin: var(--margin-card);
 
     box-shadow: 3px 3px 4px 0px var(--color-shadow-card);
 
     .card-title {
-
+        margin-bottom: var(--margin-card-title);
     }
     .card-text {
         width: 100%;

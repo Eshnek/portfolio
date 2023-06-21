@@ -6,14 +6,14 @@
 
     --color-background: #f8f8f8;
     --color-background-top: #e8e8e8;
-    --color-background-card: var(--color-background-top);
+    --color-background-card: var(--color-background);
     --color-background-button: #d4d4d4;
     --color-background-day: #dfc174;
     --color-background-night: #8e8f91;
 
     --color-border: #bbb;
     --color-border-active: #124499;
-    --color-border-card: #00000000;
+    --color-border-card: #ddd; // #00000000;
     --color-border-dark: #aaa;
     --color-border-day: #f5e0aa;
     --color-border-night: #5e5e61;
@@ -39,6 +39,9 @@
 
     --margin-top-divider: 12px;
 
+    --margin-card: 12px;
+    --margin-card-title: 12px;
+
     //-//
 
     --border-top: 1px solid var(--color-border);
@@ -51,14 +54,14 @@
 
     --color-background: #121212;
     --color-background-top: #1f1f1f;
-    --color-background-card: var(--color-background-top);
+    --color-background-card: var(--color-background);
     --color-background-button: #3a3a3a;
     --color-background-day: #dfc174;
     --color-background-night: #8e8f91;
 
     --color-border: #545454;
     --color-border-active: #70acc7;
-    --color-border-card: #00000000;
+    --color-border-card: #444; // #00000000;
     --color-border-dark: #646464;
     --color-border-day: #f5e0aa;
     --color-border-night: #c8c8cf;
@@ -79,6 +82,10 @@ a {
     color: var(--color-text);
 }
 
+h1 {
+    font-size: 24px;
+}
+
 body {
     min-height: 100vh;
     color: var(--color-text);
@@ -87,7 +94,7 @@ body {
     Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
     font-size: 16px;
-    line-height: 2em;
+    line-height: 1em;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
