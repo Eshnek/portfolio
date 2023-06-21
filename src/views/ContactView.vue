@@ -1,9 +1,9 @@
 <script setup lang="ts">
-// import Portfolio from "../components/Portfolio.vue";
+import Contact from "../components/Contact.vue";
 </script>
 
 <template>
-  <main>
-    Contact Me
-  </main>
+    <main>
+        <Contact />
+    </main>
 </template>

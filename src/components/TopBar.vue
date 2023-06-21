@@ -10,6 +10,7 @@
             <div class="top-right">
                 <Corner />
             </div>
+            <div class="divider"></div>
             <RouterLink class="contact" to="/contact">Contact</RouterLink>
         </nav>
     </div>
@@ -48,6 +49,9 @@ export default {
         text-align: center;
 
         padding: var(--padding-top);
+        padding-bottom: 0;
+        padding-top: 0;
+
         display: flex;
         align-items: center;
         justify-content: center;
@@ -61,9 +65,11 @@ export default {
 
             text-decoration: none;
             font-size: var(--font-size-top);
-            color: var(--color-text);
-        }
+            color: var(--color-text-inactive);
 
+            border-bottom: 1px solid transparent;
+            margin-bottom: -2px;
+        }
         .top-right {
             height: inherit;
             position: absolute;
@@ -72,10 +78,26 @@ export default {
             display: flex;
             align-items: center;
         }
+        .divider {
+            height: 60%;
+            width: 1px;
+            background-color: var(--color-border);
 
+            margin: var(--margin-top-divider);
+        }
         .contact {
             /*position: absolute;
             right: 64px;*/
+        }
+
+        .router-link-active {
+            color: var(--color-text-active);
+
+            height: 100%;
+            display: flex;
+            align-items: center;
+
+            border-bottom: 1px solid var(--color-border-active);
         }
     }
 }
