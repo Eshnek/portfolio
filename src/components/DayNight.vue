@@ -18,18 +18,29 @@ export default {
         onToggled(event: any) {
             this.night = event.target.checked;
 
-            this.apply();
+            this.changed();
         },
 
-        apply() {
+        changed() {
             this.applyTheme();
+
+            this.save();
         },
         applyTheme() {
             document.documentElement.setAttribute('data-theme', this.night ? 'darkMode' : '');
-        }
+        },
+
+        save() {
+            localStorage.setItem('night', `${this.night}`);
+        },
+        restore() {
+            this.night = localStorage.getItem('night') === 'true';
+
+            this.changed();
+        },
     },
     mounted() {
-        this.apply();
+        this.restore();
     }
 }
 </script>
