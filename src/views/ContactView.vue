@@ -3,7 +3,7 @@ import Contact from "../components/Contact.vue";
 </script>
 
 <template>
-    <main>
-        <Contact />
-    </main>
+  <main>
+    <Contact />
+  </main>
 </template>
