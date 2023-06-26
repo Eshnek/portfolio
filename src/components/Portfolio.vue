@@ -1,5 +1,7 @@
 <template>
   <div class="home">
+    <Bio />
+
     <Card
       title="Teek"
       description="Game in development. Uses a proprietary engine written with C++20. The game utilizes the ECS design pattern."
@@ -51,9 +53,10 @@
 
 <script lang="ts">
 import Card from "@/components/Card.vue";
+import Bio from "@/components/Bio.vue";
 
 export default {
-  components: { Card },
+  components: { Card, Bio },
 };
 </script>
 
@@ -61,6 +64,8 @@ export default {
 .home {
   display: grid;
   justify-content: center;
+
+
 
   padding: var(--padding-page);
 }
