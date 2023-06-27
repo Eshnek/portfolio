@@ -3,49 +3,54 @@
         <Bio />
 
         <div class="cards">
-            <Card class="card-top"
+            <Card
                 title="Teek"
                 description="Game in development. Uses a proprietary engine written with C++20. The game utilizes the ECS design pattern."
                 link="https://teek.info" :blank="true"
             />
 
-            <Card class="card-top"
+            <Card
                 title="DayForm"
                 description="Daily accountability form delivered by text message. Responses are encrypted client-side using a derived key."
                 link="https://dayform.io" :blank="true"
             />
 
-            <Card class="card-top"
+            <Card
                 title="Match"
                 description="High Performance Log Validator"
                 link="https://github.com/CitadelStronghold/match"
             />
-            <Card class="card-top"
+            <Card
                 title="Gem Linux"
                 description="Arch Linux® Based ISO Distribution"
                 link="https://github.com/CitadelStronghold/gem"
             />
 
-            <Card class="card-middle"
+            <Card
                 title="C++ Starter"
                 description="Starter C++23 Project with CMake and Ninja"
                 link="https://github.com/Eshnek/starter"
             />
-            <Card class="card-middle"
+            <Card
                 title="TypeList"
                 description="C++ type manipulation header"
                 link="https://github.com/Eshnek/typelist"
             />
-            <Card class="card-middle"
+            <Card
                 title="Format"
                 description="My official clang-format configuration"
                 link="https://github.com/Eshnek/format"
             />
 
-            <Card class="card-middle"
+            <Card
                 title="Power Commit"
                 description="A Visual Studio Code Extension for performing quick Git commits"
                 link="https://github.com/CitadelStronghold/power-commit"
+            />
+            <Card
+                title="Smart Backspace"
+                description="A Visual Studio Code Extension for deleting empty lines when backspace is pressed"
+                link="https://github.com/CitadelStronghold/smart-backspace"
             />
         </div>
     </div>
@@ -79,11 +84,6 @@ export default {
         justify-items: center;
 
         padding: var(--padding-page);
-
-        .card-top {
-        }
-        .card-middle {
-        }
     }
 }
 </style>
