@@ -1,7 +1,7 @@
 <template>
     <div class="bio">
         <div class="bio-top">
-            Hello, I'm Dylan! I am a professional software engineer with interests all over the board.
+            Hello, I'm Dylan! I am a professional software engineer with experience all over the board.
         </div>
 
         <div class="bio-bottom">
