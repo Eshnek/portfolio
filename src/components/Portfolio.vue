@@ -11,19 +11,22 @@
 
             <Card
                 title="DayForm"
-                description="Daily accountability form delivered by text message. Responses are encrypted client-side using a derived key."
+                description="Daily accountability form service delivered by text message. Responses are encrypted client-side using a derived key."
                 link="https://dayform.io" :blank="true"
             />
 
             <Card
-                title="Match"
-                description="High Performance Log Validator"
-                link="https://github.com/CitadelStronghold/match"
-            />
-            <Card
                 title="Gem Linux"
                 description="Arch Linux® Based ISO Distribution"
                 link="https://github.com/CitadelStronghold/gem"
+            />
+        </div>
+        <h1>C++</h1>
+        <div class="cards">
+            <Card
+                title="Match"
+                description="High Performance Log Validator"
+                link="https://github.com/CitadelStronghold/match"
             />
 
             <Card
@@ -41,7 +44,9 @@
                 description="My official clang-format configuration"
                 link="https://github.com/Eshnek/format"
             />
-
+        </div>
+        <h1>Visual Studio Code Extensions</h1>
+        <div class="cards">
             <Card
                 title="Power Commit"
                 description="A Visual Studio Code Extension for performing quick Git commits"
@@ -74,7 +79,7 @@ export default {
     padding-top: var(--padding-page);
 
     .cards {
-        width: 100%;
+        width: min-content;
         height: min-content;
 
         display: grid;
@@ -83,7 +88,14 @@ export default {
         grid-template-rows: auto;
         justify-items: center;
 
-        padding: var(--padding-page);
+        padding-left: var(--padding-page);
+        padding-right: var(--padding-page);
+        padding-top: var(--padding-page-vertical);
+        padding-bottom: var(--padding-page-vertical);
+    }
+    h1 {
+        margin: 8px;
+        font-size: 24px;
     }
 }
 </style>
