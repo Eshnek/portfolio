@@ -1,118 +1,150 @@
 <template>
-  <div class="card" :class="cardClass" @click="onClicked">
-    <Corner class="card-corner" v-if="link" :color="1" :blank="blank" />
+    <div class="card" :class="cardClass" :style="cardStyle" @click="onClickedBroad">
+        <Corner class="card-corner" v-if="link" :color="1" :blank="blank" @click="onClickedCorner" />
 
-    <div class="card-title card-text">
-      <h1>{{ title }}</h1>
+        <div class="card-title card-text">
+            <h1>{{ title }}</h1>
+        </div>
+        <div v-if="description" class="divider" />
+        <div v-if="description" class="card-description card-text">
+            {{ description }}
+        </div>
     </div>
-    <div class="divider" />
-    <div class="card-description card-text">
-      {{ description }}
-    </div>
-  </div>
 </template>
 
 <script lang="ts">
 import Corner from "@/components/Corner.vue";
 
 export default {
-  components: { Corner },
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
+    components: { Corner },
+    props: {
+        title: {
+            type: String,
+            required: true,
+        },
+        description: {
+            type: String,
+            required: false,
+        },
 
-    link: {
-      type: String,
-      required: false,
+        link: {
+            type: String,
+            required: false,
+        },
+        blank: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
+        small: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
+        background: {
+            type: String,
+            required: false,
+            default: '',
+        },
+        foreground: {
+            type: String,
+            required: false,
+            default: '',
+        }
     },
-    blank: {
-      type: Boolean,
-      required: false,
-      default: false,
+    computed: {
+        cardClass() {
+            const link = this.link ? 'card-linked' : 'card-unlinked';
+            const small = this.small? 'card-small' : '';
+
+            return `${link} ${small}`;
+        },
+        cardStyle() {
+            const background = this.background !== '' ? `background-color: ${this.background};` : '';
+            const foreground = this.foreground !== '' ? `color: ${this.foreground};` : '';
+
+            return background + foreground;
+        }
     },
-  },
-  computed: {
-    cardClass() {
-      return this.link ? "card-linked" : "card-unlinked";
+    methods: {
+        onClickedBroad() {
+            if(!this.small) {
+                this.openLink();
+            }
+        },
+        onClickedCorner() {
+            if(this.small) {
+                this.openLink();
+            }
+        },
+
+        openLink() {
+            window.open(this.link, "_blank")?.focus();
+        },
     },
-  },
-  methods: {
-    onClicked() {
-      window.open(this.link, "_blank")?.focus();
-    },
-  },
 };
 </script>
 
 <style scoped lang="scss">
 .card {
-  min-width: 256px;
-  min-height: 32px;
-  max-width: 512px;
-  max-height: 1024px;
+    min-width: 256px;
+    min-height: 32px;
+    max-width: 512px;
+    max-height: 1024px;
 
-  width: min-content;
-  height: min-content;
+    width: min-content;
+    height: min-content;
 
-  border: 1px solid var(--color-border-card);
-  border-radius: 8px;
+    border: 1px solid var(--color-border-card);
+    border-radius: 8px;
 
-  background-color: var(--color-background-card);
+    background-color: var(--color-background-card);
 
-  padding: var(--padding-card);
-  margin: var(--margin-card);
+    padding: var(--padding-card);
+    margin: var(--margin-card);
 
-  box-shadow: 3px 3px 4px 0px var(--color-shadow-card);
+    box-shadow: 3px 3px 4px 0px var(--color-shadow-card);
 
-  transition: transform 0.2s ease-in-out;
-  position: relative;
+    transition: transform 0.2s ease-in-out;
+    position: relative;
 
-  overflow: hidden;
+    overflow: hidden;
+    .card-text {
+        width: 100%;
 
-  .card-title {
-    margin-bottom: var(--margin-card-title);
-  }
+        text-align: center;
+        overflow-wrap: break-word;
+    }
 
-  .card-text {
-    width: 100%;
+    .card-corner {
+        position: absolute;
+        right: 0px;
+        top: 0px;
 
-    text-align: center;
-    overflow-wrap: break-word;
-  }
+        width: 32px;
+        height: 32px;
+    }
 
-  .card-corner {
-    position: absolute;
-    right: 0px;
-    top: 0px;
+    .divider {
+        width: 100%;
+        height: 1px;
 
-    width: 32px;
-    height: 32px;
-  }
+        padding-left: 32px;
+        padding-right: 32px;
 
-  .divider {
-    width: 100%;
-    height: 1px;
-
-    padding-left: 32px;
-    padding-right: 32px;
-  }
+        margin-top: var(--margin-card-title);
+    }
 }
 
 .card:hover {
-  transform: scale(1.05);
+    transform: scale(1.05);
 }
 
-.card-linked {
-  cursor: pointer;
+.card-linked:not(.card-small) {
+    cursor: pointer;
 }
 
 .card-unlinked {
-  cursor: default;
+    cursor: default;
 }
 </style>

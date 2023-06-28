@@ -38,6 +38,10 @@
 
   //-//
 
+  --gap: 32px;
+
+  //-//
+
   --margin-top-divider: 12px;
 
   --margin-card: 12px;
@@ -85,6 +89,21 @@ a {
 
 h1 {
   font-size: 24px;
+}
+
+.card-holder {
+    width: min-content;
+    height: min-content;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+
+    padding-left: var(--padding-page);
+    padding-right: var(--padding-page);
+    padding-top: var(--padding-page-vertical);
+    padding-bottom: var(--padding-page-vertical);
 }
 
 body {

@@ -2,7 +2,7 @@
     <div class="home">
         <Bio />
 
-        <div class="cards">
+        <div class="card-holder">
             <Card
                 title="Teek"
                 description="Game in development. Uses a proprietary engine written with C++20. The game utilizes the ECS design pattern."
@@ -10,8 +10,8 @@
             />
 
             <Card
-                title="DayForm"
-                description="Daily accountability form service delivered by text message. Responses are encrypted client-side using a derived key."
+                title="DayForm.io"
+                description="Daily accountability form service delivered by text message. Responses are encrypted client-side using a derived key. Frontend written using VueJS."
                 link="https://dayform.io" :blank="true"
             />
 
@@ -22,7 +22,7 @@
             />
         </div>
         <h1>C++</h1>
-        <div class="cards">
+        <div class="card-holder">
             <Card
                 title="Match"
                 description="High Performance Log Validator"
@@ -36,7 +36,7 @@
             />
             <Card
                 title="TypeList"
-                description="C++ type manipulation header"
+                description="C++ Type Manipulation Header"
                 link="https://github.com/Eshnek/typelist"
             />
             <Card
@@ -44,9 +44,14 @@
                 description="My official clang-format configuration"
                 link="https://github.com/Eshnek/format"
             />
+
+            <Card
+                title="Case"
+                description="An in-house testing engine that sandboxes tests into subprocesses. This technique allows any number of tests to run in parallel, without static variables interfering with each other."
+            />
         </div>
         <h1>Visual Studio Code Extensions</h1>
-        <div class="cards">
+        <div class="card-holder">
             <Card
                 title="Power Commit"
                 description="A Visual Studio Code Extension for performing quick Git commits"
@@ -54,7 +59,7 @@
             />
             <Card
                 title="Smart Backspace"
-                description="A Visual Studio Code Extension for deleting empty lines when backspace is pressed"
+                description="A Visual Studio Code Extension for deleting empty and whitespace lines when backspace is pressed"
                 link="https://github.com/CitadelStronghold/smart-backspace"
             />
         </div>
@@ -76,22 +81,9 @@ export default {
     flex-direction: column;
     align-items: center;
 
-    padding-top: var(--padding-page);
-
-    .cards {
-        width: min-content;
-        height: min-content;
-
-        display: grid;
-
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        grid-template-rows: auto;
-        justify-items: center;
-
-        padding-left: var(--padding-page);
-        padding-right: var(--padding-page);
-        padding-top: var(--padding-page-vertical);
-        padding-bottom: var(--padding-page-vertical);
+    .bio {
+        margin-top: var(--padding-page);
+        margin-bottom: var(--padding-page);
     }
     h1 {
         margin: 8px;
