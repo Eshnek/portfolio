@@ -21,6 +21,19 @@
                 link="https://github.com/CitadelStronghold/gem"
             />
         </div>
+        <h1>Visual Studio Code Extensions</h1>
+        <div class="card-holder">
+            <Card
+                title="Power Commit"
+                description="A Visual Studio Code Extension for performing quick Git commits"
+                link="https://github.com/CitadelStronghold/power-commit"
+            />
+            <Card
+                title="Smart Backspace"
+                description="A Visual Studio Code Extension for deleting empty and whitespace lines when backspace is pressed"
+                link="https://github.com/CitadelStronghold/smart-backspace"
+            />
+        </div>
         <h1>C++</h1>
         <div class="card-holder">
             <Card
@@ -48,19 +61,6 @@
             <Card
                 title="Case"
                 description="An in-house testing engine that sandboxes tests into subprocesses. This technique allows any number of tests to run in parallel, without static variables interfering with each other."
-            />
-        </div>
-        <h1>Visual Studio Code Extensions</h1>
-        <div class="card-holder">
-            <Card
-                title="Power Commit"
-                description="A Visual Studio Code Extension for performing quick Git commits"
-                link="https://github.com/CitadelStronghold/power-commit"
-            />
-            <Card
-                title="Smart Backspace"
-                description="A Visual Studio Code Extension for deleting empty and whitespace lines when backspace is pressed"
-                link="https://github.com/CitadelStronghold/smart-backspace"
             />
         </div>
     </div>
