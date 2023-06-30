@@ -7,21 +7,21 @@
                 title="Teek"
                 link="https://teek.info" :blank="true"
             >
-                Game in development. Uses a proprietary engine written with C++20. The game utilizes the ECS design pattern.
+                Game in development. Uses a proprietary engine written with <span class="color-blue">C++20</span>. The game utilizes the ECS design pattern.
             </Card>
 
             <Card
                 title="DayForm.io"
                 link="https://dayform.io" :blank="true"
             >
-                Daily accountability form service delivered by text message. Responses are encrypted client-side using a derived key. Frontend written using VueJS.
+                Daily accountability form service delivered by text message. Responses are encrypted client-side using a derived key. Frontend written using <span class="color-green">VueJS</span>.
             </Card>
 
             <Card
                 title="Gem Linux"
                 link="https://github.com/CitadelStronghold/gem"
             >
-                Arch Linux® Based ISO Distribution
+            <span class="color-blue">Arch Linux®</span> Based ISO Distribution
             </Card>
         </div>
         <h1>Visual Studio Code Extensions</h1>
@@ -61,10 +61,31 @@
                 C++ Type Manipulation Header
             </Card>
             <Card
+                class="card-format"
                 title="Format"
                 link="https://github.com/Eshnek/format"
             >
-                My official clang-format configuration
+                <div class="format-internal">
+                    <div class="format-internal-description">
+                        My official clang-format configuration.
+                    </div>
+
+                    <code class="format-internal-code">
+                        #include &lt;iostream&gt;
+                        <br>
+                        <br>
+                        int main () {
+                            <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;const char* msg = "Formatted!";
+                            <br>
+                            <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;std::cout &lt;&lt; msg &lt;&lt; "\n";
+                            <br><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;return 0;
+                            <br>
+                        }
+                    </code>
+                </div>
             </Card>
 
             <Card
@@ -97,6 +118,28 @@ export default {
     h1 {
         margin: 8px;
         font-size: 24px;
+    }
+}
+
+.card-holder {
+    .card-format {
+        width: 100%;
+
+        grid-column: span 2;
+    }
+}
+.format-internal {
+    display: flex;
+    flex-direction: column;
+    gap: var(--padding-card);
+
+    .format-internal-code {
+        border: 1px solid var(--color-border);
+        border-radius: var(--border-radius);
+
+        padding: var(--padding-card);
+
+        text-align: left;
     }
 }
 </style>
