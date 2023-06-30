@@ -3,8 +3,8 @@
         <div class="card-holder">
             <Card blank small
                 title="Email"
-                description="dylanpozarnsky@gmail.com"
-                link="mailto:dylanpozarnsky@gmail.com"
+                description="dylan@eshnek.dev"
+                link="mailto:dylan@eshnek.dev"
             />
         </div>
         <div class="card-holder">
