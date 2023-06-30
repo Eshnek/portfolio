@@ -1,5 +1,6 @@
 <template>
     <div class="card" :class="cardClass" :style="cardStyle" @click="onClickedBroad">
+        <img v-if="icon" :src="icon" :alt="title" class="card-icon" :class="iconClass" />
         <Corner class="card-corner" v-if="link" :color="1" :blank="blank" @click="onClickedCorner" />
 
         <div class="card-title card-text">
@@ -46,6 +47,15 @@ export default {
             type: String,
             required: false,
             default: '',
+        },
+        icon: {
+            type: String,
+            required: false,
+        },
+        round: {
+            type: Boolean,
+            required: false,
+            default: false,
         }
     },
     computed: {
@@ -60,6 +70,10 @@ export default {
             const foreground = this.foreground !== '' ? `color: ${this.foreground};` : '';
 
             return background + foreground;
+        },
+
+        iconClass() {
+            return this.round ? `icon-round` : '';
         },
 
         hasDescription() {
@@ -81,6 +95,10 @@ export default {
         },
 
         openLink() {
+            if (!this.link) {
+                return;
+            }
+
             window.open(this.link, "_blank")?.focus();
         },
     },
@@ -118,10 +136,25 @@ export default {
         overflow-wrap: break-word;
     }
 
-    .card-corner {
+    .card-corner,
+    .card-icon {
         position: absolute;
-        right: 0px;
-        top: 0px;
+    }
+
+    .card-icon {
+        top: var(--pading-card);
+        left: var(--padding-card);
+
+        image-rendering: auto;
+        image-rendering: crisp-edges;
+        image-rendering: pixelated;
+
+        width: 28px;
+        height: 28px;
+    }
+    .card-corner {
+        top: 0;
+        right: 0;
 
         width: 32px;
         height: 32px;
@@ -148,5 +181,10 @@ export default {
 
 .card-unlinked {
     cursor: default;
+}
+
+.icon-round {
+    border: 0px solid transparent;
+    border-radius: 8px;
 }
 </style>
