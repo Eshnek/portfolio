@@ -83,7 +83,6 @@ export default {
 
     .bio {
         margin-top: var(--padding-page);
-        margin-bottom: var(--padding-page);
     }
     h1 {
         margin: 8px;
