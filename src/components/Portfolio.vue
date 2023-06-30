@@ -5,63 +5,73 @@
         <div class="card-holder">
             <Card
                 title="Teek"
-                description="Game in development. Uses a proprietary engine written with C++20. The game utilizes the ECS design pattern."
                 link="https://teek.info" :blank="true"
-            />
+            >
+                Game in development. Uses a proprietary engine written with C++20. The game utilizes the ECS design pattern.
+            </Card>
 
             <Card
                 title="DayForm.io"
-                description="Daily accountability form service delivered by text message. Responses are encrypted client-side using a derived key. Frontend written using VueJS."
                 link="https://dayform.io" :blank="true"
-            />
+            >
+                Daily accountability form service delivered by text message. Responses are encrypted client-side using a derived key. Frontend written using VueJS.
+            </Card>
 
             <Card
                 title="Gem Linux"
-                description="Arch Linux® Based ISO Distribution"
                 link="https://github.com/CitadelStronghold/gem"
-            />
+            >
+                Arch Linux® Based ISO Distribution
+            </Card>
         </div>
         <h1>Visual Studio Code Extensions</h1>
         <div class="card-holder">
             <Card
                 title="Power Commit"
-                description="A Visual Studio Code Extension for performing quick Git commits"
                 link="https://github.com/CitadelStronghold/power-commit"
-            />
+            >
+                A Visual Studio Code Extension for performing quick Git commits.
+            </Card>
             <Card
                 title="Smart Backspace"
-                description="A Visual Studio Code Extension for deleting empty and whitespace lines when backspace is pressed"
                 link="https://github.com/CitadelStronghold/smart-backspace"
-            />
+            >
+                A Visual Studio Code Extension for deleting empty and whitespace lines when backspace is pressed.
+            </Card>
         </div>
         <h1>C++</h1>
         <div class="card-holder">
             <Card
                 title="Match"
-                description="High Performance Log Validator"
                 link="https://github.com/CitadelStronghold/match"
-            />
+            >
+                High Performance Log Validator
+            </Card>
 
             <Card
                 title="C++ Starter"
-                description="Starter C++23 Project with CMake and Ninja"
                 link="https://github.com/Eshnek/starter"
-            />
+            >
+                Starter C++23 Project with CMake and Ninja
+            </Card>
             <Card
                 title="TypeList"
-                description="C++ Type Manipulation Header"
                 link="https://github.com/Eshnek/typelist"
-            />
+            >
+                C++ Type Manipulation Header
+            </Card>
             <Card
                 title="Format"
-                description="My official clang-format configuration"
                 link="https://github.com/Eshnek/format"
-            />
+            >
+                My official clang-format configuration
+            </Card>
 
             <Card
                 title="Case"
-                description="An in-house testing engine that sandboxes tests into subprocesses. This technique allows any number of tests to run in parallel, without static variables interfering with each other."
-            />
+            >
+                An in-house testing engine that sandboxes tests into subprocesses. This technique allows any number of tests to run in parallel, without static variables interfering with each other.
+            </Card>
         </div>
     </div>
 </template>

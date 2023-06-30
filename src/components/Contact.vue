@@ -3,18 +3,20 @@
         <div class="card-holder">
             <Card blank small
                 title="Email"
-                description="dylan@eshnek.dev"
                 link="mailto:dylan@eshnek.dev"
-            />
+            >
+                dylan@eshnek.dev
+            </Card>
         </div>
         <div class="card-holder">
             <Card blank
                 title="Github"
-                description="Eshnek"
                 link="https://github.com/Eshnek"
                 background="#333"
                 foreground="#fff"
-            />
+            >
+                Eshnek
+            </Card>
 
             <Card blank
                 title="LinkedIn"
@@ -25,11 +27,12 @@
 
             <Card blank
                 title="Discord"
-                description="@Eshnek"
                 link="https://discordapp.com/users/Eshnek"
                 background="#7289da"
                 foreground="#fff"
-            />
+            >
+                @Eshnek
+            </Card>
         </div>
     </div>
 </template>

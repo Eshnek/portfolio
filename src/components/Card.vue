@@ -5,9 +5,9 @@
         <div class="card-title card-text">
             <h1>{{ title }}</h1>
         </div>
-        <div v-if="description" class="divider" />
-        <div v-if="description" class="card-description card-text">
-            {{ description }}
+        <div v-if="hasDescription" class="divider" />
+        <div v-if="hasDescription" class="card-description card-text">
+            <slot></slot>
         </div>
     </div>
 </template>
@@ -21,10 +21,6 @@ export default {
         title: {
             type: String,
             required: true,
-        },
-        description: {
-            type: String,
-            required: false,
         },
 
         link: {
@@ -64,6 +60,12 @@ export default {
             const foreground = this.foreground !== '' ? `color: ${this.foreground};` : '';
 
             return background + foreground;
+        },
+
+        hasDescription() {
+            console.log(this);
+
+            return this.$slots.default;
         }
     },
     methods: {

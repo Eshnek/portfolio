@@ -5,9 +5,7 @@ import TopBar from "./components/TopBar.vue";
 
 <template>
   <header>
-    <div class="wrapper">
-      <TopBar />
-    </div>
+    <TopBar />
   </header>
 
   <RouterView />
