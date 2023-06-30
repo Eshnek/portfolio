@@ -5,7 +5,7 @@
     </div>
     <nav class="top-bar-content">
       <RouterLink to="/">Portfolio</RouterLink>
-      <a href="/Dylan_Pozarnsky.pdf" target="_blank">Resume</a>
+      <a href="/Pozarnsky_Resume.pdf" target="_blank">Resume</a>
       <a href="https://github.com/Eshnek" target="_blank">Github</a>
       <div class="top-right">
         <Corner link="https://github.com/Eshnek/portfolio" />
