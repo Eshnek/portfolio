@@ -191,7 +191,7 @@ class Square {
     private randomColor: number = 0x0;
 
     private static smallScale: number = 0.95;
-    private static largeScale: number = 2.00; // 1.1
+    private static largeScale: number = 1.15; // 1.1
 
     private static reached: number = 0;
 
@@ -280,25 +280,22 @@ class Square {
     private static initialStageComplete(): void {
         stage = Stage.Waiting;
 
+        Square.increaseSquareScaleRates();
+
         console.log('Initial stage complete.');
+    }
+    private static increaseSquareScaleRates(): void {
+        iterateSquares((square: Square) => {
+            square.scale.rate *= 6;
+        });
     }
 
     private isCursorOver(): boolean {
-        const offsets = this.computeScaleOffsets();
-        const xywh = this.computeBlockXYWHOffsets(offsets);
+        const xPos = this.x + EdgePadding[0];
+        const yPos = this.y + EdgePadding[1];
 
-        // console.log(`${CursorPosition[0]}, ${xywh[0]}, ${xywh[2]}`);
-        // console.log(`(${CursorPosition[0]}, ${CursorPosition[1]})`);
-
-        const xPos = this.x - xywh[0];
-        const yPos = this.y - xywh[1];
-
-        const xOver = CursorPosition[0] >= xPos && CursorPosition[0] < xPos + xywh[2];
-        const yOver = CursorPosition[1] >= yPos && CursorPosition[1] < yPos + xywh[3];
-
-        /*if (xOver || yOver){
-            console.log(`Mouse over: (${this.gridX}, ${this.gridY})`);
-        }*/
+        const xOver = CursorPosition[0] >= xPos && CursorPosition[0] < xPos + SQUARE_SIZE;
+        const yOver = CursorPosition[1] >= yPos && CursorPosition[1] < yPos + SQUARE_SIZE;
 
         return xOver && yOver;
     }
