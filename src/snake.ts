@@ -201,7 +201,7 @@ class Square {
     private randomColor: number = 0x0;
 
     private static smallScale: number = 0.95;
-    private static largeScale: number = 1.15; // 1.1
+    private static largeScale: number = 1.15;
 
     private static reached: number = 0;
 
