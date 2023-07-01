@@ -135,6 +135,8 @@ function addTicker(app: PIXI.Application, graphics: PIXI.Graphics): void {
         const delta = deltaMs / 1000;
 
         if (shouldIterateSquares()) {
+            graphics.clear();
+
             iterateSquares((square: Square) => {
                 square.draw(graphics, delta);
             });
@@ -189,7 +191,7 @@ class Square {
     private randomColor: number = 0x0;
 
     private static smallScale: number = 0.95;
-    private static largeScale: number = 1.10;
+    private static largeScale: number = 2.00; // 1.1
 
     private static reached: number = 0;
 
@@ -219,7 +221,7 @@ class Square {
             console.log('To large');
             this.scale.setTarget(Square.largeScale);
         } else {
-            // this.scale.setTarget(1.);
+            this.scale.setTarget(1.);
         }
     }
     private startFill(graphics: PIXI.Graphics): void {
