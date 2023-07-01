@@ -25,8 +25,20 @@
                 link="https://github.com/CitadelStronghold/gem"
                 icon="https://avatars.githubusercontent.com/u/114880172?s=48&v=4"
             >
-            <span class="color-blue">Arch Linux®</span> Based ISO Distribution
+                <span class="color-blue">Arch Linux®</span> Based ISO Distribution
             </Card>
+
+            <Card class="hidden" title="Hidden" />
+
+            <Card
+                class="status-card"
+                title="Git Dashboard"
+            >
+                A dashboard I created and put on a Raspberry Pi in my workplace to monitor project build statuses. Built with <span class="color-green">VueJS</span> and <span class="color-blue">TypeScript</span>.
+                <img src="/status.png" alt="Status Dashboard">
+            </Card>
+
+            <Card class="hidden" title="Hidden" />
         </div>
         <h1>Visual Studio Code Extensions</h1>
         <div class="card-holder">
@@ -123,7 +135,22 @@ export default {
     }
     h1 {
         margin: 8px;
-        font-size: 24px;
+        font-size: 32px;
+    }
+
+    .hidden {
+        opacity: 0;
+    }
+    .status-card {
+        img {
+            margin-top: var(--padding-card);
+
+            width: 100%;
+            height: auto;
+
+            border: var(--border-card);
+            border-radius: var(--border-radius);
+        }
     }
 }
 
