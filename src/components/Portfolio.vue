@@ -78,9 +78,11 @@
                         #include &lt;iostream&gt;
                         <br>
                         <br>
-                        int main () {
+                        int main ()
+                        <br>
+                        {
                             <br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;const char* msg = "Formatted!";
+                            &nbsp;&nbsp;&nbsp;&nbsp;const char* msg = "Message!";
                             <br>
                             <br>
                             &nbsp;&nbsp;&nbsp;&nbsp;std::cout &lt;&lt; msg &lt;&lt; "\n";
