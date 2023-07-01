@@ -77,8 +77,6 @@ export default {
         },
 
         hasDescription() {
-            console.log(this);
-
             return this.$slots.default;
         }
     },

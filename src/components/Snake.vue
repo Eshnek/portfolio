@@ -1,12 +1,27 @@
 <template>
-    <div>
-        Snake
-    </div>
+    <div ref="root" class="snake" />
 </template>
 
 <script lang="ts">
-export default {}
+import * as Snake from '../snake';
+
+export default {
+    mounted() {
+        const elem = this.$refs.root as HTMLElement;
+
+        Snake.go(elem);
+    }
+}
 </script>
 
 <style lang="scss" scoped>
+.snake {
+    height: 180px;
+    width: 882px;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-snake);
+
+    overflow: hidden;
+}
 </style>

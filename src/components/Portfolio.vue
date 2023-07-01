@@ -147,6 +147,9 @@ export default {
         font-size: 32px;
     }
 
+    .snake {
+        margin-bottom: 6px;
+    }
     .hidden {
         opacity: 0;
     }

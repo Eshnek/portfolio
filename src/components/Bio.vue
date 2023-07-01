@@ -11,6 +11,10 @@
         <div class="bio-bottom">
             Cards with colored corners can be clicked on to open their corresponding links.
         </div>
+
+        <div class="bio-bottom">
+            Move your mouse over the grid below to play a small game.
+        </div>
     </div>
 </template>
 
