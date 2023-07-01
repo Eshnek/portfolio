@@ -179,6 +179,12 @@ function checkWasInside(inside: boolean): void {
         CursorWasInside = inside;
 
         console.log(`Cursor inside: ${inside}`);
+
+        if (inside) {
+            iterateSquares((square: Square) => {
+                square.color = COLORS.GREEN_1;
+            });
+        }
     }
 }
 
@@ -187,6 +193,8 @@ function checkWasInside(inside: boolean): void {
 class Square {
     public x: number = 0;
     public y: number = 0;
+
+    public color: number = 0;
 
     private scale: Ease = new Ease(16., 1., 0.5);
 
@@ -199,11 +207,17 @@ class Square {
 
     constructor(public gridX: number, public gridY: number) {
         this.storeXY();
-        this.storeRandomColor();
+
+        this.setColor();
     }
     private storeXY(): void {
         this.x = this.gridX * SQUARE_SIZE_PADDED;
         this.y = this.gridY * SQUARE_SIZE_PADDED;
+    }
+    private setColor(): void {
+        this.storeRandomColor();
+
+        this.color = this.randomColor;
     }
     private storeRandomColor(): void {
         const random = Math.floor(Math.random() * 4);
@@ -220,7 +234,6 @@ class Square {
     }
     private adjustTargetScale(): void {
         if (this.isCursorOver()) {
-            console.log('To large');
             this.scale.setTarget(Square.largeScale);
         } else {
             this.scale.setTarget(1.);
@@ -229,7 +242,7 @@ class Square {
     private startFill(graphics: PIXI.Graphics): void {
         // graphics.beginFill(COLORS.GREEN_0, 1);
 
-        graphics.beginFill(this.randomColor, 1);
+        graphics.beginFill(this.color, 1);
     }
     private drawRectangle(graphics: PIXI.Graphics, delta: number): void {
         const offsets = this.computeScaleOffsets(delta);
@@ -357,8 +370,6 @@ class Ease {
             this.progress_ = 1.;
         }*/
 
-        console.log(`Target is ${this.target_}, progress is ${this.progress_}. Returning ${this.current_}`);
-
         return this.current_;
     }
     public getCurrent(): any {
@@ -369,8 +380,6 @@ class Ease {
         if (this.target_ === newTarget) {
             return;
         }
-
-        // console.log(`Reassign target to ${this.target_}`);
 
         this.start_ = this.current_;
         this.target_ = newTarget;
