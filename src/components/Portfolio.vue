@@ -34,7 +34,7 @@
                 class="status-card"
                 title="Git Dashboard"
             >
-                A dashboard I created and put on a Raspberry Pi in my workplace to monitor project build statuses. Built with <span class="color-green">VueJS</span> and <span class="color-blue">TypeScript</span>.
+                A dashboard I created and put on a [Raspberry Pi](https://www.raspberrypi.com/) in my workplace to monitor project build statuses. Built with <span class="color-green">VueJS</span> and <span class="color-blue">TypeScript</span>.
                 <img src="/status.png" alt="Status Dashboard">
             </Card>
 
