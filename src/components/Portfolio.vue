@@ -54,6 +54,12 @@
             >
                 A Visual Studio Code Extension for deleting empty and whitespace lines when backspace is pressed.
             </Card>
+            <Card
+                title="Semigod"
+                link="https://github.com/CitadelStronghold/semigod"
+            >
+                A Visual Studio Code Extension for adding a semicolon with a keyboard shortcut.
+            </Card>
         </div>
         <h1>C++</h1>
         <div class="card-holder">
