@@ -2,6 +2,8 @@
     <div class="home">
         <Bio />
 
+        <Snake />
+
         <div class="card-holder">
             <Card blank
                 title="Teek"
@@ -122,11 +124,12 @@
 </template>
 
 <script lang="ts">
-import Card from "@/components/Card.vue";
-import Bio from "@/components/Bio.vue";
+import Card from '@/components/Card.vue';
+import Bio from '@/components/Bio.vue';
+import Snake from '@/components/Snake.vue';
 
 export default {
-    components: { Card, Bio },
+    components: { Card, Bio, Snake },
 };
 </script>
 
