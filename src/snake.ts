@@ -20,7 +20,6 @@ const SQUARE_SIZE = 22;
 const SQUARE_GAP = 6;
 const SQUARE_SIZE_PADDED = SQUARE_SIZE + SQUARE_GAP;
 
-
 const HOVER_MARGIN = 8;
 
 const MAX_FPS = 30;
