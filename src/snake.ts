@@ -20,6 +20,9 @@ const SQUARE_SIZE = 22;
 const SQUARE_GAP = 6;
 const SQUARE_SIZE_PADDED = SQUARE_SIZE + SQUARE_GAP;
 
+
+const HOVER_MARGIN = 8;
+
 const MAX_FPS = 30;
 
 //-//
@@ -29,7 +32,7 @@ let Target: HTMLElement;
 let GridDimensions: [number, number] = [0, 0];
 let TotalGridDimensions: number = 0;
 
-let CursorPosition: [number, number] = [-1, -1];
+let CursorPosition: [number, number] = [-1024, -1024];
 let CursorWasInside: boolean = false;
 
 const EdgePadding: [number, number] = [0, 0];
@@ -291,13 +294,21 @@ class Square {
     }
 
     private isCursorOver(): boolean {
-        const xPos = this.x + EdgePadding[0];
-        const yPos = this.y + EdgePadding[1];
-
-        const xOver = CursorPosition[0] >= xPos && CursorPosition[0] < xPos + SQUARE_SIZE;
-        const yOver = CursorPosition[1] >= yPos && CursorPosition[1] < yPos + SQUARE_SIZE;
-
-        return xOver && yOver;
+        return Square.getIsOverAxes(this.getPaddedXY(), HOVER_MARGIN);
+    }
+    private getPaddedXY(): [number, number] {
+        return [
+            this.x + EdgePadding[0],
+            this.y + EdgePadding[1],
+        ];
+    }
+    private static getIsOverAxes([xPos, yPos]: [number, number], extraMargin: number = 0): boolean {
+        return Square.isCursorOverAxis(0, xPos, extraMargin) &&
+            Square.isCursorOverAxis(1, yPos, extraMargin);
+    }
+    private static isCursorOverAxis(index: number, position: number, extraMargin: number = 0): boolean {
+        return (CursorPosition[index] >= position - extraMargin) &&
+            (CursorPosition[index] < position + SQUARE_SIZE + extraMargin);
     }
 
     private static isOnEdge(position: number, total: number): boolean {
