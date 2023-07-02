@@ -7,10 +7,19 @@ import * as Snake from '../snake';
 
 export default {
     mounted() {
-        const elem = this.$refs.root as HTMLElement;
+        this.goSnake();
 
-        Snake.go(elem);
-    }
+        this.$router.afterEach(() => {
+            this.goSnake();
+        });
+    },
+    methods: {
+        goSnake(): void {
+            const elem = this.$refs.root as HTMLElement;
+
+            Snake.go(elem);
+        }
+    },
 }
 </script>
 
