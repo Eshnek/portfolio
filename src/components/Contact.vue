@@ -4,9 +4,7 @@
             <Card blank small
                 title="Email"
                 link="mailto:dylan@eshnek.dev"
-            >
-                dylan@eshnek.dev
-            </Card>
+            >dylan@eshnek.dev</Card>
         </div>
         <div class="card-holder">
             <Card blank
@@ -14,9 +12,7 @@
                 link="https://github.com/Eshnek"
                 background="#333"
                 foreground="#fff"
-            >
-                Eshnek
-            </Card>
+            >Eshnek</Card>
 
             <Card blank
                 title="LinkedIn"
@@ -30,9 +26,7 @@
                 link="https://discordapp.com/users/Eshnek"
                 background="#7289da"
                 foreground="#fff"
-            >
-                @Eshnek
-            </Card>
+            >@Eshnek</Card>
         </div>
     </div>
 </template>
