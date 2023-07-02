@@ -1,3 +1,5 @@
+// All rights reserved.
+
 import * as PIXI from 'pixi.js';
 
 //-//
@@ -48,6 +50,7 @@ enum Stage {
 let CurrentStage: Stage = Stage.Initial;
 
 let Game: SnakeGame | null = null;
+let GameQueued: boolean = false;
 
 //-//
 
@@ -143,13 +146,13 @@ function addTicker(app: PIXI.Application, graphics: PIXI.Graphics): void {
         const delta = deltaMs / 1000;
 
         if (shouldPlayGame()) {
+            tickGame(delta);
+
             graphics.clear();
 
             iterateSquares((square: Square) => {
                 square.draw(graphics, delta);
             });
-
-            tickGame(delta);
         }
     })
 
@@ -157,6 +160,10 @@ function addTicker(app: PIXI.Application, graphics: PIXI.Graphics): void {
     ticker.speed = 1;
 }
 function tickGame(delta: number): void {
+    if (GameQueued) {
+        newGame();
+    }
+
     if (Game !== null) {
         Game.tick(delta);
     }
@@ -194,7 +201,7 @@ function checkWasInside(inside: boolean): void {
     if (CursorWasInside !== inside) {
         CursorWasInside = inside;
 
-        console.log(`[${inside}]`);
+        console.log(`[snake] [${inside}]`);
 
         if (inside) {
             onCursorBeginInside();
@@ -202,7 +209,16 @@ function checkWasInside(inside: boolean): void {
     }
 }
 function onCursorBeginInside(): void {
+    newGame();
+}
+function newGame(): void {
+    console.log('[snake] [new game]')
+
     Game = new SnakeGame();
+    GameQueued = false;
+}
+function queueNewGame(): void {
+    GameQueued = true;
 }
 
 //-//
@@ -257,8 +273,6 @@ class Square {
         }
     }
     private startFill(graphics: PIXI.Graphics): void {
-        // graphics.beginFill(COLORS.GREEN_0, 1);
-
         graphics.beginFill(this.color, 1);
     }
     private drawRectangle(graphics: PIXI.Graphics, delta: number): void {
@@ -414,12 +428,14 @@ class SnakeGame {
 
     public static BlankColor = COLORS.GREEN_1;
 
+    public static ScaleRate = 1.05;
+
     public fruit: [number, number] | null = null;
     public snake: any = [];
 
     private budget: number = 0;
     // Moves Per Second
-    private mps: number = 16;
+    private mps: number = 24;
 
     constructor() {
         SnakeGame.clearSquareColors();
@@ -449,12 +465,16 @@ class SnakeGame {
         this.moveSnake();
     }
 
+    public increaseDifficulty(): void {
+        this.mps *= SnakeGame.ScaleRate;
+
+        console.log('[snake] Increasing speed to ' + this.mps);
+    }
+
     private moveSnake(): void {
         const oldSnake = structuredClone(this.snake);
 
-        const movement = this.getSnakeMovement();
-        this.snake![0][0] += movement[0];
-        this.snake![0][1] += movement[1];
+        this.moveSnake_(this.getSnakeMovement());
 
         this.unapplySnake(oldSnake);
         this.applySnake();
@@ -485,41 +505,106 @@ class SnakeGame {
             }
         }
     }
+    private moveSnake_(movement: [number, number]): void {
+        const oldHeadXY = this.snake![0];
+        const newHeadXY: [number, number] = [oldHeadXY[0] + movement[0], oldHeadXY[1] + movement[1]];
+
+        this.snake.unshift(newHeadXY);
+
+        if (this.isSnakeOutOfBounds()) {
+            this.snake.shift();
+
+            return queueNewGame();
+        }
+
+        if (this.isFruitOverlapping(newHeadXY)) {
+            this.newFruit();
+            this.increaseDifficulty();
+        } else {
+            this.snake.pop();
+        }
+
+        if (
+            this.isSnakeOverlapping()
+        ) {
+            queueNewGame();
+        }
+    }
+    private isSnakeOverlapping(): boolean {
+        for(const outerXY of this.snake) {
+            let contents = -1;
+
+            for(const innerXY of this.snake) {
+                if (outerXY[0] === innerXY[0] && outerXY[1] === innerXY[1]) {
+                    contents++;
+                }
+            }
+
+            if (contents !== 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    private isSnakeOutOfBounds(): boolean {
+        const [x, y] = this.snake![0];
+
+        return (
+            x < 0 || x >= GridDimensions[0] ||
+            y < 0 || y >= GridDimensions[1]
+        );
+    }
 
     private newFruit(): void {
-        this.fruit = this.generateRandomCoordinate();
+        const oldFruit = structuredClone(this.fruit);
 
+        this.fruit = this.generateRandomGridXY();
+
+        this.unapplyFruit(oldFruit);
         this.applyFruit();
     }
     private applyFruit(): void {
         Squares[this.fruit![1]][this.fruit![0]].color = COLORS.FRUIT_0;
     }
     private unapplyFruit(oldFruit: any): void {
+        if (oldFruit === null) {
+            return;
+        }
+
         Squares[oldFruit![1]][oldFruit![0]].color = COLORS.FRUIT_0;
+    }
+    private isFruitOverlapping(gridXY: [number, number]): boolean {
+        return this.fruit![0] === gridXY[0] &&
+            this.fruit![1] === gridXY[1];
     }
 
     private newSnake(): void {
-        this.snake.push(this.generateRandomCoordinate());
+        this.snake.push(this.generateRandomGridXY());
 
         this.applySnake();
     }
     private applySnake(): void {
-        Squares[this.snake![0]![1]][this.snake![0]![0]].color = COLORS.SNAKE_0;
+        for (const xy of this.snake!) {
+            Squares[xy![1]][xy![0]].color = COLORS.SNAKE_0;
+        }
     }
     private unapplySnake(oldSnake: any): void {
-        Squares[oldSnake![0]![1]][oldSnake![0]![0]].color = SnakeGame.BlankColor;
+        for (const xy of oldSnake) {
+            Squares[xy![1]][xy![0]].color = SnakeGame.BlankColor;
+        }
     }
 
-    private generateRandomCoordinate(): [number, number] {
+    private generateRandomGridXY(): [number, number] {
         do {
-            const result: [number, number] = SnakeGame.randomGrid();
+            const result: [number, number] = SnakeGame.randomGridXY();
 
             if (!SnakeGame.isSquareOccupied(result)) {
                 return result;
             }
         } while(true); // TODO
     }
-    private static randomGrid(): [number, number] {
+    private static randomGridXY(): [number, number] {
         return [SnakeGame.randomGridX(), SnakeGame.randomGridY()];
     }
     private static randomGridX(): number {

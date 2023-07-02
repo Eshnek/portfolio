@@ -13,7 +13,7 @@
         </div>
 
         <div class="bio-bottom">
-            Move your mouse over the grid below to play a small game.
+            Move your mouse over the grid below to play a short game.
         </div>
     </div>
 </template>
