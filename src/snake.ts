@@ -16,7 +16,7 @@ const COLORS = {
     GREEN_3: 0x408458,
     GREEN_4: 0x29674F,
 
-    FRUIT_0: 0xE65247,
+    FRUIT_0: 0xC95249,
 
     SNAKE_0: 0x274270,
     SNAKE_1: 0x0D3C69,
@@ -435,7 +435,12 @@ class Ease {
     private storeProgressiveRange(): void {
         const range = this.target_ - this.start_;
 
-        this.current_ = this.start_ + (range * this.progress_);
+        this.current_ = this.start_ + (range * Ease.curve(this.progress_));
+    }
+    private static curve(x: number): number {
+        // https://easings.net/#easeInOutQuint
+
+        return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
     }
     public getCurrent(): any {
         return this.current_;
