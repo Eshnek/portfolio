@@ -18,7 +18,7 @@ const COLORS = {
 
     FRUIT_0: 0xE65247,
 
-    SNAKE_0: 0x082356,
+    SNAKE_0: 0x274270,
     SNAKE_1: 0x0D3C69,
     SNAKE_2: 0x701E31,
 
@@ -460,7 +460,8 @@ class Ease {
 
 class SnakeGame {
 
-    public static BlankColor = COLORS.GREEN_2;
+    public static BlankColorA = COLORS.GREEN_2;
+    public static BlankColorB = COLORS.GREEN_3;
 
     public static ScaleRate = 1.05;
 
@@ -530,9 +531,9 @@ class SnakeGame {
             CursorPosition[1] - snakeScreenXY[1]
         ];
 
-        const positive = diff.map((v: number) => v >= 0);
+        const positive = diff.map((v: number) => v >= 0) as unknown as Vec2;
 
-        diff = diff.map((v: number) => Math.abs(v));
+        diff = diff.map((v: number) => Math.abs(v)) as Vec2;
 
         return SnakeGame.computeSnakeMovement(diff, positive);
     }
@@ -659,8 +660,11 @@ class SnakeGame {
     }
     private unapplySnake(oldSnake: any): void {
         for (const [x, y] of oldSnake) {
-            Squares[y][x].color = SnakeGame.BlankColor;
+            Squares[y][x].color = SnakeGame.computeGrassColor(x, y);
         }
+    }
+    private static computeGrassColor(x: number, y: number): number {
+        return x % 2 === 0 || y % 2 === 0 ? SnakeGame.BlankColorA : SnakeGame.BlankColorB;
     }
 
     private applyHeadScale(): void {
@@ -707,12 +711,12 @@ class SnakeGame {
         return Math.floor(Math.random() * GridDimensions[axis]);
     }
     private static isSquareOccupied([x, y]: Vec2): boolean {
-        return Squares[y][x].color !== SnakeGame.BlankColor;
+        return Squares[y][x].color !== SnakeGame.computeGrassColor(x, y);
     }
 
     private static clearSquareColors(): void {
         iterateSquares((square: Square) => {
-            square.color = SnakeGame.BlankColor;
+            square.color = SnakeGame.computeGrassColor(square.gridX, square.gridY);
         });
     }
     private static clearSquareScales(): void {
