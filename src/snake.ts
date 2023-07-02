@@ -202,14 +202,16 @@ function isWithinView(index: number, size: number): boolean {
     return CursorPosition[index] >= 0 && CursorPosition[index] < size;
 }
 function checkWasInside(inside: boolean): void {
-    if (CursorWasInside !== inside) {
-        CursorWasInside = inside;
+    if (CursorWasInside === inside) {
+        return;
+    }
 
-        console.log(`[snake] [${inside}]`);
+    CursorWasInside = inside;
 
-        if (inside) {
-            onCursorBeginInside();
-        }
+    console.log(`[snake] [${inside}]`);
+
+    if (inside) {
+        onCursorBeginInside();
     }
 }
 function onCursorBeginInside(): void {
@@ -614,7 +616,7 @@ class SnakeGame {
             if (!SnakeGame.isSquareOccupied(result)) {
                 return result;
             }
-        } while(true); // TODO
+        } while(true);
     }
     private static randomGridXY(): Vec2 {
         return [SnakeGame.randomGridX(), SnakeGame.randomGridY()];
