@@ -18,6 +18,8 @@ const COLORS = {
     FRUIT_0: 0xE65247,
 
     SNAKE_0: 0x082356,
+    SNAKE_1: 0x0D3C69,
+    SNAKE_2: 0x701E31,
 
     DARK_BLUE: 0x053C5E,
 };
@@ -431,7 +433,7 @@ class Ease {
 
 class SnakeGame {
 
-    public static BlankColor = COLORS.GREEN_1;
+    public static BlankColor = COLORS.GREEN_2;
 
     public static ScaleRate = 1.05;
 
@@ -599,8 +601,21 @@ class SnakeGame {
         this.applySnake();
     }
     private applySnake(): void {
+        let index: number = -1;
+        const color: () => number = () => {
+            index++;
+
+            if (index === 0) {
+                return COLORS.SNAKE_0;
+            } else if (index % 2 === 0) {
+                return COLORS.SNAKE_1;
+            } else {
+                return COLORS.SNAKE_2;
+            }
+        };
+
         for (const [x, y] of this.snake!) {
-            Squares[y][x].color = COLORS.SNAKE_0;
+            Squares[y][x].color = color();
         }
     }
     private unapplySnake(oldSnake: any): void {
