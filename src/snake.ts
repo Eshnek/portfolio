@@ -9,6 +9,10 @@ const COLORS = {
     GREEN_3: 0x408458,
     GREEN_4: 0x29674F,
 
+    FRUIT_0: 0xE65247,
+
+    SNAKE_0: 0x081336,
+
     DARK_BLUE: 0x053C5E,
 };
 
@@ -41,7 +45,9 @@ enum Stage {
     Initial,
     Waiting,
 };
-let stage: Stage = Stage.Initial;
+let CurrentStage: Stage = Stage.Initial;
+
+let Game: SnakeGame | null = null;
 
 //-//
 
@@ -133,17 +139,27 @@ function makePaddedSquare(x: number, y: number): Square {
 //-//
 
 function addTicker(app: PIXI.Application, graphics: PIXI.Graphics): void {
-    app.ticker.add((deltaMs) => {
+    const ticker = app.ticker.add((deltaMs) => {
         const delta = deltaMs / 1000;
 
-        if (shouldIterateSquares()) {
+        if (shouldPlayGame()) {
             graphics.clear();
 
             iterateSquares((square: Square) => {
                 square.draw(graphics, delta);
             });
+
+            tickGame(delta);
         }
-    }).maxFPS = MAX_FPS;
+    })
+
+    ticker.maxFPS = MAX_FPS;
+    ticker.speed = 1;
+}
+function tickGame(delta: number): void {
+    if (Game !== null) {
+        Game.tick(delta);
+    }
 }
 
 //-//
@@ -158,8 +174,8 @@ function hookMousePosition(app: PIXI.Application): void {
         CursorPosition = [x, y];
     });
 }
-function shouldIterateSquares(): boolean {
-    return cursorIsInside() || stage === Stage.Initial;
+function shouldPlayGame(): boolean {
+    return cursorIsInside() || CurrentStage === Stage.Initial;
 }
 function cursorIsInside(): boolean {
     const xInside = isWithinView(0, Target.clientWidth);
@@ -181,11 +197,12 @@ function checkWasInside(inside: boolean): void {
         console.log(`Cursor inside: ${inside}`);
 
         if (inside) {
-            iterateSquares((square: Square) => {
-                square.color = COLORS.GREEN_1;
-            });
+            onCursorBeginInside();
         }
     }
+}
+function onCursorBeginInside(): void {
+    Game = new SnakeGame();
 }
 
 //-//
@@ -284,7 +301,7 @@ class Square {
     }
 
     private progressInitialStage(): void {
-        if (stage === Stage.Initial && this.scale.isComplete()) {
+        if (CurrentStage === Stage.Initial && this.scale.isComplete()) {
             Square.reached++;
 
             if (Square.reached === TotalGridDimensions) {
@@ -293,7 +310,7 @@ class Square {
         }
     }
     private static initialStageComplete(): void {
-        stage = Stage.Waiting;
+        CurrentStage = Stage.Waiting;
 
         Square.increaseSquareScaleRates();
 
@@ -393,6 +410,141 @@ class Ease {
 
 //-//
 
+class SnakeGame {
+
+    public static BlankColor = COLORS.GREEN_1;
+
+    public fruit: [number, number] | null = null;
+    public snake: any = [];
+
+    private budget: number = 0;
+    // Moves Per Second
+    private mps: number = 16;
+
+    constructor() {
+        SnakeGame.clearSquareColors();
+
+        this.newFruit();
+        this.newSnake();
+    }
+
+    public tick(delta: number): void {
+        this.applyTickBudget(delta);
+
+        this.applyTickMovements(delta);
+    }
+    private applyTickBudget(delta: number): void {
+        this.budget += delta;
+    }
+    private applyTickMovements(delta: number): void {
+        const mps_ = 1 / this.mps;
+
+        if (this.budget > mps_) {
+            this.budget -= mps_;
+
+            this.tick_();
+        }
+    }
+    private tick_(): void {
+        this.moveSnake();
+    }
+
+    private moveSnake(): void {
+        const oldSnake = structuredClone(this.snake);
+
+        const movement = this.getSnakeMovement();
+        this.snake![0][0] += movement[0];
+        this.snake![0][1] += movement[1];
+
+        this.unapplySnake(oldSnake);
+        this.applySnake();
+    }
+    private getSnakeMovement(): [number, number] {
+        const snakeScreenXY = gridToScreen(this.snake![0]);
+        let diff = [
+            CursorPosition[0] - snakeScreenXY[0],
+            CursorPosition[1] - snakeScreenXY[1]
+        ];
+
+        const positive = diff.map(v => v >= 0);
+
+        diff[0] = Math.abs(diff[0]);
+        diff[1] = Math.abs(diff[1]);
+
+        if (diff[0] > diff[1]) {
+            if (positive[0]) {
+                return [1,0];
+            } else {
+                return [-1,0];
+            }
+        } else {
+            if (positive[1]) {
+                return [0,1];
+            } else {
+                return [0,-1];
+            }
+        }
+    }
+
+    private newFruit(): void {
+        this.fruit = this.generateRandomCoordinate();
+
+        this.applyFruit();
+    }
+    private applyFruit(): void {
+        Squares[this.fruit![1]][this.fruit![0]].color = COLORS.FRUIT_0;
+    }
+    private unapplyFruit(oldFruit: any): void {
+        Squares[oldFruit![1]][oldFruit![0]].color = COLORS.FRUIT_0;
+    }
+
+    private newSnake(): void {
+        this.snake.push(this.generateRandomCoordinate());
+
+        this.applySnake();
+    }
+    private applySnake(): void {
+        Squares[this.snake![0]![1]][this.snake![0]![0]].color = COLORS.SNAKE_0;
+    }
+    private unapplySnake(oldSnake: any): void {
+        Squares[oldSnake![0]![1]][oldSnake![0]![0]].color = SnakeGame.BlankColor;
+    }
+
+    private generateRandomCoordinate(): [number, number] {
+        do {
+            const result: [number, number] = SnakeGame.randomGrid();
+
+            if (!SnakeGame.isSquareOccupied(result)) {
+                return result;
+            }
+        } while(true); // TODO
+    }
+    private static randomGrid(): [number, number] {
+        return [SnakeGame.randomGridX(), SnakeGame.randomGridY()];
+    }
+    private static randomGridX(): number {
+        return SnakeGame.randomGrid_(0);
+    }
+    private static randomGridY(): number {
+        return SnakeGame.randomGrid_(1);
+    }
+    private static randomGrid_(axis: number): number {
+        return Math.floor(Math.random() * GridDimensions[axis]);
+    }
+    private static isSquareOccupied([x, y]: [number, number]): boolean {
+        return Squares[y][x].color !== SnakeGame.BlankColor;
+    }
+
+    private static clearSquareColors(): void {
+        iterateSquares((square: Square) => {
+            square.color = SnakeGame.BlankColor;
+        });
+    }
+
+};
+
+//-//
+
 function iterateGridDimensions(functor: (x: number, y: number) => void): void {
     for (let y = 0; y < GridDimensions[1]; y++) {
         for (let x = 0; x < GridDimensions[0]; x++) {
@@ -406,4 +558,14 @@ function iterateSquares(functor: (square: Square) => void): void {
             functor(square);
         }
     }
+}
+
+function gridToScreen(xy: [number, number]): [number, number] {
+    return [
+        gridToScreenAxis(0, xy),
+        gridToScreenAxis(1, xy),
+    ]
+}
+function gridToScreenAxis(axis: number, xy: [number, number]): number {
+    return EdgePadding[axis] + (xy[axis] * SQUARE_SIZE_PADDED);
 }
