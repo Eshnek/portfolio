@@ -86,7 +86,7 @@ function createApp(): PIXI.Application {
         view: renderer.view,
     });
 
-    Target.appendChild(app.view);
+    Target.appendChild(app.view as unknown as Node);
 
     return app;
 }
