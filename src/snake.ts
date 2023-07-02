@@ -4,6 +4,10 @@ import * as PIXI from 'pixi.js';
 
 //-//
 
+type Vec2 = Vec2;
+
+//-//
+
 const COLORS = {
     GREEN_0: 0xBDCC92,
     GREEN_1: 0x7CCB6C,
@@ -34,13 +38,13 @@ const MAX_FPS = 30;
 
 let Target: HTMLElement;
 
-let GridDimensions: [number, number] = [0, 0];
+let GridDimensions: Vec2 = [0, 0];
 let TotalGridDimensions: number = 0;
 
-let CursorPosition: [number, number] = [-1024, -1024];
+let CursorPosition: Vec2 = [-1024, -1024];
 let CursorWasInside: boolean = false;
 
-const EdgePadding: [number, number] = [0, 0];
+const EdgePadding: Vec2 = [0, 0];
 const Squares: Square[][] = [];
 
 enum Stage {
@@ -108,7 +112,7 @@ function storeGridDimensions(app: PIXI.Application): void {
 
     TotalGridDimensions = GridDimensions[0] * GridDimensions[1];
 }
-function computeGridDimensions(app: PIXI.Application): [number, number] {
+function computeGridDimensions(app: PIXI.Application): Vec2 {
     const width = Math.floor(app.view.width / SQUARE_SIZE_PADDED);
     const height = Math.floor(app.view.height / SQUARE_SIZE_PADDED);
 
@@ -290,14 +294,14 @@ class Square {
     private stopFill(graphics: PIXI.Graphics): void {
         graphics.endFill();
     }
-    private computeScaleOffsets(delta: number = 0): [number, number] {
+    private computeScaleOffsets(delta: number = 0): Vec2 {
         const newScale = this.get(delta);
 
         const diff = SQUARE_SIZE * (1 - (1 / newScale));
 
         return [diff, diff * 2];
     }
-    private computeBlockXYWHOffsets(offsets: [number, number]): [number, number, number, number] {
+    private computeBlockXYWHOffsets(offsets: Vec2): [number, number, number, number] {
         return [
             EdgePadding[0] - offsets[0],
             EdgePadding[1] - offsets[0],
@@ -339,13 +343,13 @@ class Square {
     private isCursorOver(): boolean {
         return Square.getIsOverAxes(this.getPaddedXY(), HOVER_MARGIN);
     }
-    private getPaddedXY(): [number, number] {
+    private getPaddedXY(): Vec2 {
         return [
             this.x + EdgePadding[0],
             this.y + EdgePadding[1],
         ];
     }
-    private static getIsOverAxes([xPos, yPos]: [number, number], extraMargin: number = 0): boolean {
+    private static getIsOverAxes([xPos, yPos]: Vec2, extraMargin: number = 0): boolean {
         return Square.isCursorOverAxis(0, xPos, extraMargin) &&
             Square.isCursorOverAxis(1, yPos, extraMargin);
     }
@@ -430,7 +434,7 @@ class SnakeGame {
 
     public static ScaleRate = 1.05;
 
-    public fruit: [number, number] | null = null;
+    public fruit: Vec2 | null = null;
     public snake: any = [];
 
     private budget: number = 0;
@@ -479,18 +483,20 @@ class SnakeGame {
         this.unapplySnake(oldSnake);
         this.applySnake();
     }
-    private getSnakeMovement(): [number, number] {
+    private getSnakeMovement(): Vec2 {
         const snakeScreenXY = gridToScreen(this.snake![0]);
-        let diff = [
+        let diff: Vec2 = [
             CursorPosition[0] - snakeScreenXY[0],
             CursorPosition[1] - snakeScreenXY[1]
         ];
 
         const positive = diff.map(v => v >= 0);
 
-        diff[0] = Math.abs(diff[0]);
-        diff[1] = Math.abs(diff[1]);
+        diff = diff.map(v => Math.abs(v));
 
+        return SnakeGame.computeSnakeMovement(diff, positive);
+    }
+    private static computeSnakeMovement(diff: Vec2, positive: Vec2): Vec2 {
         if (diff[0] > diff[1]) {
             if (positive[0]) {
                 return [1,0];
@@ -505,9 +511,9 @@ class SnakeGame {
             }
         }
     }
-    private moveSnake_(movement: [number, number]): void {
+    private moveSnake_(movement: Vec2): void {
         const oldHeadXY = this.snake![0];
-        const newHeadXY: [number, number] = [oldHeadXY[0] + movement[0], oldHeadXY[1] + movement[1]];
+        const newHeadXY: Vec2 = [oldHeadXY[0] + movement[0], oldHeadXY[1] + movement[1]];
 
         this.snake.unshift(newHeadXY);
 
@@ -574,7 +580,7 @@ class SnakeGame {
 
         Squares[oldFruit![1]][oldFruit![0]].color = COLORS.FRUIT_0;
     }
-    private isFruitOverlapping(gridXY: [number, number]): boolean {
+    private isFruitOverlapping(gridXY: Vec2): boolean {
         return this.fruit![0] === gridXY[0] &&
             this.fruit![1] === gridXY[1];
     }
@@ -595,16 +601,16 @@ class SnakeGame {
         }
     }
 
-    private generateRandomGridXY(): [number, number] {
+    private generateRandomGridXY(): Vec2 {
         do {
-            const result: [number, number] = SnakeGame.randomGridXY();
+            const result: Vec2 = SnakeGame.randomGridXY();
 
             if (!SnakeGame.isSquareOccupied(result)) {
                 return result;
             }
         } while(true); // TODO
     }
-    private static randomGridXY(): [number, number] {
+    private static randomGridXY(): Vec2 {
         return [SnakeGame.randomGridX(), SnakeGame.randomGridY()];
     }
     private static randomGridX(): number {
@@ -616,7 +622,7 @@ class SnakeGame {
     private static randomGrid_(axis: number): number {
         return Math.floor(Math.random() * GridDimensions[axis]);
     }
-    private static isSquareOccupied([x, y]: [number, number]): boolean {
+    private static isSquareOccupied([x, y]: Vec2): boolean {
         return Squares[y][x].color !== SnakeGame.BlankColor;
     }
 
@@ -645,12 +651,12 @@ function iterateSquares(functor: (square: Square) => void): void {
     }
 }
 
-function gridToScreen(xy: [number, number]): [number, number] {
+function gridToScreen(xy: Vec2): Vec2 {
     return [
         gridToScreenAxis(0, xy),
         gridToScreenAxis(1, xy),
     ]
 }
-function gridToScreenAxis(axis: number, xy: [number, number]): number {
+function gridToScreenAxis(axis: number, xy: Vec2): number {
     return EdgePadding[axis] + (xy[axis] * SQUARE_SIZE_PADDED);
 }
