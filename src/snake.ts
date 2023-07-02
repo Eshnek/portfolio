@@ -232,17 +232,19 @@ function queueNewGame(): void {
 //-//
 
 class Square {
+    public static smallScale: number = 0.95;
+    public static largeScale: number = 1.15;
+
     public x: number = 0;
     public y: number = 0;
 
     public color: number = 0;
 
+    public scaleMultiple = 1.;
+
     private scale: Ease = new Ease(16., 1., 0.5);
 
     private randomColor: number = 0x0;
-
-    private static smallScale: number = 0.95;
-    private static largeScale: number = 1.15;
 
     private static reached: number = 0;
 
@@ -315,7 +317,7 @@ class Square {
     }
 
     private get(delta: number): number {
-        const r = this.scale.get(delta);
+        const r = this.scale.get(delta) * this.scaleMultiple;
 
         this.progressInitialStage();
 
@@ -446,6 +448,7 @@ class SnakeGame {
 
     constructor() {
         SnakeGame.clearSquareColors();
+        SnakeGame.clearSquareScales();
 
         this.newFruit();
         this.newSnake();
@@ -483,8 +486,14 @@ class SnakeGame {
 
         this.moveSnake_(this.getSnakeMovement());
 
+        this.unapplyHeadScale(oldSnake);
         this.unapplySnake(oldSnake);
+
+        this.applyToSnake();
+    }
+    private applyToSnake(): void {
         this.applySnake();
+        this.applyHeadScale();
     }
     private getSnakeMovement(): Vec2 {
         const snakeScreenXY = gridToScreen(this.snake![0]);
@@ -598,7 +607,7 @@ class SnakeGame {
     private newSnake(): void {
         this.snake.push(this.generateRandomGridXY());
 
-        this.applySnake();
+        this.applyToSnake();
     }
     private applySnake(): void {
         let index = [-1];
@@ -622,6 +631,17 @@ class SnakeGame {
         for (const [x, y] of oldSnake) {
             Squares[y][x].color = SnakeGame.BlankColor;
         }
+    }
+
+    private applyHeadScale(): void {
+        const [x, y] = this.snake![0];
+
+        Squares[y][x].scaleMultiple = Square.largeScale;
+    }
+    private unapplyHeadScale(oldSnake: any): void {
+        const [x, y] = oldSnake![0];
+
+        Squares[y][x].scaleMultiple = 1.;
     }
 
     private generateRandomGridXY(): Vec2 {
@@ -652,6 +672,11 @@ class SnakeGame {
     private static clearSquareColors(): void {
         iterateSquares((square: Square) => {
             square.color = SnakeGame.BlankColor;
+        });
+    }
+    private static clearSquareScales(): void {
+        iterateSquares((square: Square) => {
+            square.scaleMultiple = 1.;
         });
     }
 
