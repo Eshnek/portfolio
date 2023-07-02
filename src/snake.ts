@@ -17,7 +17,7 @@ const COLORS = {
 
     FRUIT_0: 0xE65247,
 
-    SNAKE_0: 0x081336,
+    SNAKE_0: 0x082356,
 
     DARK_BLUE: 0x053C5E,
 };
@@ -63,8 +63,6 @@ export function go(target: HTMLElement): void {
 
     const app: PIXI.Application = createApp();
     const graphics: PIXI.Graphics = createGraphics(app);
-
-    // graphics.lineStyle(2, 0x00F, 1);
 
     generateSquares(app, graphics);
 
@@ -151,12 +149,7 @@ function addTicker(app: PIXI.Application, graphics: PIXI.Graphics): void {
 
         if (shouldPlayGame()) {
             tickGame(delta);
-
-            graphics.clear();
-
-            iterateSquares((square: Square) => {
-                square.draw(graphics, delta);
-            });
+            renderGame(graphics, delta);
         }
     })
 
@@ -171,6 +164,13 @@ function tickGame(delta: number): void {
     if (Game !== null) {
         Game.tick(delta);
     }
+}
+function renderGame(graphics: PIXI.Graphics, delta: number): void {
+    graphics.clear();
+
+    iterateSquares((square: Square) => {
+        square.draw(graphics, delta);
+    });
 }
 
 //-//
@@ -391,21 +391,20 @@ class Ease {
     private get_(delta: number) {
         const change = delta * this.rate;
 
-        this.progress_ += change;
-        this.progress_ = Math.max(Math.min(this.progress_, 1.), 0.);
+        this.addClampedProgress(change);
 
-        const range = this.target_ - this.start_;
-        this.current_ = this.start_ + (range * this.progress_);
-
-        //TODO
-        /*if (
-            this.progress_ < Ease.SmallThreshold ||
-            1. - this.progress_ < Ease.SmallThreshold
-        ) {
-            this.progress_ = 1.;
-        }*/
+        this.storeProgressiveRange();
 
         return this.current_;
+    }
+    private addClampedProgress(change: number): void {
+        this.progress_ += change;
+        this.progress_ = Math.max(Math.min(this.progress_, 1.), 0.);
+    }
+    private storeProgressiveRange(): void {
+        const range = this.target_ - this.start_;
+
+        this.current_ = this.start_ + (range * this.progress_);
     }
     public getCurrent(): any {
         return this.current_;
@@ -451,12 +450,12 @@ class SnakeGame {
     public tick(delta: number): void {
         this.applyTickBudget(delta);
 
-        this.applyTickMovements(delta);
+        this.applyTickMovements();
     }
     private applyTickBudget(delta: number): void {
         this.budget += delta;
     }
-    private applyTickMovements(delta: number): void {
+    private applyTickMovements(): void {
         const mps_ = 1 / this.mps;
 
         if (this.budget > mps_) {
@@ -490,9 +489,9 @@ class SnakeGame {
             CursorPosition[1] - snakeScreenXY[1]
         ];
 
-        const positive = diff.map(v => v >= 0);
+        const positive = diff.map((v: number) => v >= 0);
 
-        diff = diff.map(v => Math.abs(v));
+        diff = diff.map((v: number) => Math.abs(v));
 
         return SnakeGame.computeSnakeMovement(diff, positive);
     }
@@ -538,20 +537,23 @@ class SnakeGame {
     }
     private isSnakeOverlapping(): boolean {
         for(const outerXY of this.snake) {
-            let contents = -1;
-
-            for(const innerXY of this.snake) {
-                if (outerXY[0] === innerXY[0] && outerXY[1] === innerXY[1]) {
-                    contents++;
-                }
-            }
-
-            if (contents !== 0) {
+            if (this.isSnakeOverlappingInner_(outerXY)) {
                 return true;
             }
         }
 
         return false;
+    }
+    private isSnakeOverlappingInner_([outX, outY]: Vec2): boolean {
+        let contents = -1;
+
+        for(const [inX, inY] of this.snake) {
+            if (outX === inX && outY === inY) {
+                contents++;
+            }
+        }
+
+        return contents !== 0;
     }
     private isSnakeOutOfBounds(): boolean {
         const [x, y] = this.snake![0];
@@ -571,18 +573,22 @@ class SnakeGame {
         this.applyFruit();
     }
     private applyFruit(): void {
-        Squares[this.fruit![1]][this.fruit![0]].color = COLORS.FRUIT_0;
+        const [x, y] = this.fruit!;
+
+        Squares[y][x].color = COLORS.FRUIT_0;
     }
     private unapplyFruit(oldFruit: any): void {
         if (oldFruit === null) {
             return;
         }
 
-        Squares[oldFruit![1]][oldFruit![0]].color = COLORS.FRUIT_0;
+        const [oldX, oldY] = oldFruit;
+        Squares[oldY][oldX].color = COLORS.FRUIT_0;
     }
-    private isFruitOverlapping(gridXY: Vec2): boolean {
-        return this.fruit![0] === gridXY[0] &&
-            this.fruit![1] === gridXY[1];
+    private isFruitOverlapping([gridX, gridY]: Vec2): boolean {
+        const [fruitX, fruitY] = this.fruit!;
+
+        return fruitX === gridX && fruitY === gridY;
     }
 
     private newSnake(): void {
@@ -591,13 +597,13 @@ class SnakeGame {
         this.applySnake();
     }
     private applySnake(): void {
-        for (const xy of this.snake!) {
-            Squares[xy![1]][xy![0]].color = COLORS.SNAKE_0;
+        for (const [x, y] of this.snake!) {
+            Squares[y][x].color = COLORS.SNAKE_0;
         }
     }
     private unapplySnake(oldSnake: any): void {
-        for (const xy of oldSnake) {
-            Squares[xy![1]][xy![0]].color = SnakeGame.BlankColor;
+        for (const [x, y] of oldSnake) {
+            Squares[y][x].color = SnakeGame.BlankColor;
         }
     }
 
