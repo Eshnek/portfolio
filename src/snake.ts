@@ -194,7 +194,7 @@ function checkWasInside(inside: boolean): void {
     if (CursorWasInside !== inside) {
         CursorWasInside = inside;
 
-        console.log(`Cursor inside: ${inside}`);
+        console.log(`[${inside}]`);
 
         if (inside) {
             onCursorBeginInside();
