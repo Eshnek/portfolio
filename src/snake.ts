@@ -64,15 +64,7 @@ let GameQueued: boolean = false;
 
 //-//
 
-function reset(): void {
-    Game = null;
-    CursorPosition = [-1024, -1024];
-    CurrentStage = Stage.Initial;
-    GridDimensions = [0, 0];
-    TotalGridDimensions = 0;
-}
 export function go(target: HTMLElement): void {
-    reset();
     Target = target;
 
     const app: PIXI.Application = createApp();

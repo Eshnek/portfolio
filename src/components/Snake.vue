@@ -7,13 +7,17 @@ import * as Snake from '../snake';
 
 export default {
     mounted() {
+        this.hookReload();
         this.goSnake();
-
-        this.$router.afterEach(() => {
-            this.goSnake();
-        });
     },
     methods: {
+        hookReload(): void {
+            this.$router.afterEach((to, from) => {
+                if (to.path === '/') {
+                    location.reload();
+                }
+            });
+        },
         goSnake(): void {
             const elem = this.$refs.root as HTMLElement;
 
