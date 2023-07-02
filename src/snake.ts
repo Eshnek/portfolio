@@ -4,7 +4,8 @@ import * as PIXI from 'pixi.js';
 
 //-//
 
-type Vec2 = Vec2;
+type Vec2 = [number, number];
+type Vec4 = [number, number, number, number];
 
 //-//
 
@@ -22,11 +23,14 @@ const COLORS = {
     SNAKE_2: 0x701E31,
 
     DARK_BLUE: 0x053C5E,
+
+    WHITE_0: 0xcfcfcf,
 };
 
 const BACKGROUND_COLOR = COLORS.GREEN_4;
 
 const BORDER_RADIUS = 4;
+const EYE_RADIUS = 3;
 
 const SQUARE_SIZE = 22;
 const SQUARE_GAP = 6;
@@ -239,8 +243,9 @@ class Square {
     public y: number = 0;
 
     public color: number = 0;
-
-    public scaleMultiple = 1.;
+    public eyeColor: number = COLORS.WHITE_0;
+    public scaleMultiple: number = 1.;
+    public eye: boolean = false;
 
     private scale: Ease = new Ease(16., 1., 0.5);
 
@@ -272,7 +277,7 @@ class Square {
         this.adjustTargetScale();
 
         this.startFill(graphics);
-        this.drawRectangle(graphics, delta);
+        this.drawPrimary(graphics, delta);
         this.stopFill(graphics);
     }
     private adjustTargetScale(): void {
@@ -285,16 +290,33 @@ class Square {
     private startFill(graphics: PIXI.Graphics): void {
         graphics.beginFill(this.color, 1);
     }
-    private drawRectangle(graphics: PIXI.Graphics, delta: number): void {
+    private drawPrimary(graphics: PIXI.Graphics, delta: number): void {
         const offsets = this.computeScaleOffsets(delta);
         const xywh = this.computeBlockXYWHOffsets(offsets);
 
+        this.drawBody(graphics, xywh);
+        this.drawEye(graphics, xywh);
+    }
+    private drawBody(graphics: PIXI.Graphics, xywh: Vec4): void {
         graphics.drawRoundedRect(
             this.x + xywh[0],
             this.y + xywh[1],
             xywh[2],
             xywh[3],
             BORDER_RADIUS
+        );
+    }
+    private drawEye(graphics: PIXI.Graphics, xywh: Vec4): void {
+        if (!this.eye) {
+            return;
+        }
+
+        graphics.beginFill(this.eyeColor, 1);
+
+        graphics.drawCircle(
+            this.x + xywh[0] + 9,
+            this.y + xywh[1] + 9,
+            EYE_RADIUS * this.computeScale()
         );
     }
     private stopFill(graphics: PIXI.Graphics): void {
@@ -307,7 +329,7 @@ class Square {
 
         return [diff, diff * 2];
     }
-    private computeBlockXYWHOffsets(offsets: Vec2): [number, number, number, number] {
+    private computeBlockXYWHOffsets(offsets: Vec2): Vec4 {
         return [
             EdgePadding[0] - offsets[0],
             EdgePadding[1] - offsets[0],
@@ -317,11 +339,14 @@ class Square {
     }
 
     private get(delta: number): number {
-        const r = this.scale.get(delta) * this.scaleMultiple;
+        const r = this.computeScale(delta);
 
         this.progressInitialStage();
 
         return r;
+    }
+    private computeScale(delta: number = 0): number {
+        return this.scale.get(delta) * this.scaleMultiple;
     }
 
     private progressInitialStage(): void {
@@ -449,6 +474,7 @@ class SnakeGame {
     constructor() {
         SnakeGame.clearSquareColors();
         SnakeGame.clearSquareScales();
+        SnakeGame.clearSquareEyes();
 
         this.newFruit();
         this.newSnake();
@@ -486,6 +512,7 @@ class SnakeGame {
 
         this.moveSnake_(this.getSnakeMovement());
 
+        this.unapplyHeadEye(oldSnake);
         this.unapplyHeadScale(oldSnake);
         this.unapplySnake(oldSnake);
 
@@ -494,6 +521,7 @@ class SnakeGame {
     private applyToSnake(): void {
         this.applySnake();
         this.applyHeadScale();
+        this.applyHeadEye();
     }
     private getSnakeMovement(): Vec2 {
         const snakeScreenXY = gridToScreen(this.snake![0]);
@@ -646,6 +674,17 @@ class SnakeGame {
         Squares[y][x].scaleMultiple = 1.;
     }
 
+    private applyHeadEye(): void {
+        const [x, y] = this.snake![0];
+
+        Squares[y][x].eye = true;
+    }
+    private unapplyHeadEye(oldSnake: any): void {
+        const [x, y] = oldSnake![0];
+
+        Squares[y][x].eye = false;
+    }
+
     private generateRandomGridXY(): Vec2 {
         do {
             const result: Vec2 = SnakeGame.randomGridXY();
@@ -679,6 +718,11 @@ class SnakeGame {
     private static clearSquareScales(): void {
         iterateSquares((square: Square) => {
             square.scaleMultiple = 1.;
+        });
+    }
+    private static clearSquareEyes(): void {
+        iterateSquares((square: Square) => {
+            square.eye = false;
         });
     }
 
