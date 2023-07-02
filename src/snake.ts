@@ -601,21 +601,21 @@ class SnakeGame {
         this.applySnake();
     }
     private applySnake(): void {
-        let index: number = -1;
-        const color: () => number = () => {
-            index++;
-
-            if (index === 0) {
-                return COLORS.SNAKE_0;
-            } else if (index % 2 === 0) {
-                return COLORS.SNAKE_1;
-            } else {
-                return COLORS.SNAKE_2;
-            }
-        };
+        let index = [-1];
 
         for (const [x, y] of this.snake!) {
-            Squares[y][x].color = color();
+            Squares[y][x].color = SnakeGame.color(index);
+        }
+    }
+    private static color(index: number[]): number {
+        index[0]++;
+
+        if (index[0] === 0) {
+            return COLORS.SNAKE_0;
+        } else if (index[0] % 2 === 0) {
+            return COLORS.SNAKE_1;
+        } else {
+            return COLORS.SNAKE_2;
         }
     }
     private unapplySnake(oldSnake: any): void {
