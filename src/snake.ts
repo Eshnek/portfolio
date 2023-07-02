@@ -589,6 +589,7 @@ class SnakeGame {
         const [x, y] = this.fruit!;
 
         Squares[y][x].color = COLORS.FRUIT_0;
+        Squares[y][x].scaleMultiple = Square.largeScale;
     }
     private unapplyFruit(oldFruit: any): void {
         if (oldFruit === null) {
@@ -597,6 +598,7 @@ class SnakeGame {
 
         const [oldX, oldY] = oldFruit;
         Squares[oldY][oldX].color = COLORS.FRUIT_0;
+        Squares[oldY][oldX].scaleMultiple = 1.;
     }
     private isFruitOverlapping([gridX, gridY]: Vec2): boolean {
         const [fruitX, fruitY] = this.fruit!;
