@@ -13,7 +13,7 @@
         </div>
 
         <div class="bio-bottom">
-            Move your mouse over the grid below to play a short game.
+            Move your mouse over the grid below to play a short game written in <span class="color-blue">TypeScript</span>.
         </div>
     </div>
 </template>
