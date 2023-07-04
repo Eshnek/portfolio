@@ -13,7 +13,7 @@
         </div>
 
         <div class="bio-bottom">
-            Move your mouse over the grid below to play a short snake game I wrote in <span class="color-blue">TypeScript</span>.
+            Move your mouse over the grid below to play a short snake game I <a href="https://github.com/Eshnek/portfolio/blob/main/src/snake.ts" target="_blank">wrote in <span class="color-blue">TypeScript</span></a>:
         </div>
     </div>
 </template>
@@ -34,6 +34,13 @@
     }
     .bio-bottom {
         font-size: 18px;
+
+        a {
+            text-decoration: underline;
+            text-decoration-color: var(--color-link);
+
+            color: var(--color-text-link);
+        }
     }
 }
 </style>
