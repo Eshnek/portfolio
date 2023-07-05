@@ -22,8 +22,7 @@ const COLORS = {
     SNAKE_1: 0x0D3C69,
     SNAKE_2: 0x701E31,
 
-    DARK_BLUE: 0x053C5E,
-
+    DARK_BLUE_0: 0x053C5E,
     WHITE_0: 0xcfcfcf,
 };
 
