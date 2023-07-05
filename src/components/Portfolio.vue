@@ -18,7 +18,7 @@
                 link="https://dayform.io"
                 icon="https://dayform.io/Icon.png"
             >
-                Daily accountability form service delivered by text message. Responses are encrypted client-side using a derived key. Frontend written using <span class="color-green">VueJS</span>.
+                Daily accountability and mobile-compatible form service delivered by text message. Responses are encrypted client-side using a derived key. Frontend written using <span class="color-green">VueJS</span>.
             </Card>
 
             <Card round
