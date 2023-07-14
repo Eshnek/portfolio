@@ -40,7 +40,13 @@
                 <img src="/status.png" alt="Status Dashboard">
             </Card>
 
-            <Card class="hidden" title="Hidden" />
+            <Card blank
+                title="Nuxt Weather"
+                link="https://weather-lyart-seven.vercel.app/"
+                icon="https://weather-lyart-seven.vercel.app/favicon.ico"
+            >
+                A weather dashboard I created to show my abilities with <span class="color-green">Nuxt</span> and <span class="color-blue">Tailwind CSS</span>. The weather data is retrieved using an encrypted API on the server side. The data is then serialized and sent to the client securely. Results are colored by temperature.
+            </Card>
         </div>
         <h1>Visual Studio Code Extensions</h1>
         <div class="card-holder">
