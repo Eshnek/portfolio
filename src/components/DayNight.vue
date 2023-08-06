@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-const DEFAULT_DAY: boolean = true;
+const DEFAULT_DAY: boolean = false;
 
 export default {
   data() {
