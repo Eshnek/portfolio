@@ -46,11 +46,12 @@ export default {
             }
 
             this.night = value === "true";
-            this.changed();
         },
     },
     mounted() {
         this.restore();
+
+        this.changed();
     },
 };
 </script>
