@@ -5,21 +5,21 @@
         <Snake />
 
         <div class="card-holder">
-            <Card blank
+            <!--<Card blank
                 title="Teek"
                 link="https://teek.info"
                 icon="https://teek.info/Icon.png"
             >
                 Game in development. Uses a proprietary engine written with <span class="color-blue">C++20</span>. The game utilizes the ECS design pattern.
-            </Card>
+            </Card>-->
 
-            <Card blank
+            <!--<Card blank
                 title="DayForm.io"
                 link="https://dayform.io"
                 icon="https://dayform.io/Icon.png"
             >
                 Daily accountability and mobile-compatible form service delivered by text message. Responses are encrypted client-side using a derived key. Frontend written using <span class="color-green">VueJS</span>.
-            </Card>
+            </Card>-->
 
             <Card round
                 class="gem-card"
@@ -30,7 +30,7 @@
                 <span class="color-blue">Arch Linux®</span> Based ISO Distribution
             </Card>
 
-            <Card class="hidden" title="Hidden" />
+            <!--<Card class="hidden" title="Hidden" />-->
 
             <Card
                 class="status-card"
