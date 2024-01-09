@@ -4,50 +4,6 @@
 
         <Snake />
 
-        <div class="card-holder">
-            <!--<Card blank
-                title="Teek"
-                link="https://teek.info"
-                icon="https://teek.info/Icon.png"
-            >
-                Game in development. Uses a proprietary engine written with <span class="color-blue">C++20</span>. The game utilizes the ECS design pattern.
-            </Card>-->
-
-            <!--<Card blank
-                title="DayForm.io"
-                link="https://dayform.io"
-                icon="https://dayform.io/Icon.png"
-            >
-                Daily accountability and mobile-compatible form service delivered by text message. Responses are encrypted client-side using a derived key. Frontend written using <span class="color-green">VueJS</span>.
-            </Card>-->
-
-            <Card round
-                class="gem-card"
-                title="Gem Linux"
-                link="https://github.com/CitadelStronghold/gem"
-                icon="https://avatars.githubusercontent.com/u/114880172?s=48&v=4"
-            >
-                <span class="color-blue">Arch Linux®</span> Based ISO Distribution
-            </Card>
-
-            <!--<Card class="hidden" title="Hidden" />-->
-
-            <Card
-                class="status-card"
-                title="Git Dashboard"
-            >
-                A dashboard I created and put on a Raspberry Pi in my workplace to monitor project build statuses. Built with <span class="color-green">VueJS</span> and <span class="color-blue">TypeScript</span>.
-                <img src="/status.png" alt="Status Dashboard">
-            </Card>
-
-            <Card blank
-                title="Nuxt Weather"
-                link="https://weather-lyart-seven.vercel.app/"
-                icon="https://weather-lyart-seven.vercel.app/favicon.ico"
-            >
-                A weather dashboard I created to show my abilities with <span class="color-green">Nuxt</span> and <span class="color-blue">Tailwind CSS</span>. The weather data is retrieved using an encrypted API on the server side. The data is then serialized and sent to the client securely. Results are colored by temperature.
-            </Card>
-        </div>
         <h1>Visual Studio Code Extensions</h1>
         <div class="card-holder">
             <Card
@@ -124,6 +80,51 @@
                 title="Case"
             >
                 An in-house testing engine that sandboxes tests into subprocesses. This technique allows any number of tests to run in parallel, without static variables interfering with each other.
+            </Card>
+        </div>
+        <h1>Experiments</h1>
+        <div class="card-holder">
+            <!--<Card blank
+                title="Teek"
+                link="https://teek.info"
+                icon="https://teek.info/Icon.png"
+            >
+                Game in development. Uses a proprietary engine written with <span class="color-blue">C++20</span>. The game utilizes the ECS design pattern.
+            </Card>-->
+
+            <!--<Card blank
+                title="DayForm.io"
+                link="https://dayform.io"
+                icon="https://dayform.io/Icon.png"
+            >
+                Daily accountability and mobile-compatible form service delivered by text message. Responses are encrypted client-side using a derived key. Frontend written using <span class="color-green">VueJS</span>.
+            </Card>-->
+
+            <Card round
+                class="gem-card"
+                title="Gem Linux"
+                link="https://github.com/CitadelStronghold/gem"
+                icon="https://avatars.githubusercontent.com/u/114880172?s=48&v=4"
+            >
+                <span class="color-blue">Arch Linux®</span> Based ISO Distribution
+            </Card>
+
+            <!--<Card class="hidden" title="Hidden" />-->
+
+            <Card
+                class="status-card"
+                title="Git Dashboard"
+            >
+                A dashboard I created and put on a Raspberry Pi in my workplace to monitor project build statuses. Built with <span class="color-green">VueJS</span> and <span class="color-blue">TypeScript</span>.
+                <img src="/status.png" alt="Status Dashboard">
+            </Card>
+
+            <Card blank
+                title="Nuxt Weather"
+                link="https://weather-lyart-seven.vercel.app/"
+                icon="https://weather-lyart-seven.vercel.app/favicon.ico"
+            >
+                A weather dashboard I created to show my abilities with <span class="color-green">Nuxt</span> and <span class="color-blue">Tailwind CSS</span>. The weather data is retrieved using an encrypted API on the server side. The data is then serialized and sent to the client securely. Results are colored by temperature.
             </Card>
         </div>
     </div>
