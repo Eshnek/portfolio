@@ -53,7 +53,7 @@
             >
                 <div class="format-internal">
                     <div class="format-internal-description">
-                        My official clang-format configuration.
+                        My clang-format configuration.
                     </div>
 
                     <code class="format-internal-code">
