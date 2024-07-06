@@ -170,7 +170,7 @@ export default {
 }
 
 .card:hover {
-    transform: scale(1.05);
+    transform: scale(1.025);
 }
 
 .card-linked:not(.card-small) {
