@@ -1,0 +1,140 @@
+/* color palette from <https://github.com/vuejs/theme> */
+:root {
+    --color-text: #020202;
+    --color-text-inactive: #555;
+    --color-text-active: var(--color-text);
+    --color-text-link: #78a1d4;
+
+    --color-background: #f8f8f8;
+    --color-background-top: #e8e8e8;
+    --color-background-card: var(--color-background);
+    --color-background-button: #d4d4d4;
+    --color-background-day: #dfc174;
+    --color-background-night: #8e8f91;
+
+    --color-border: #bbb;
+    --color-border-active: #124499;
+    --color-border-card: #ddd;
+    --color-border-dark: #aaa;
+    --color-border-day: #f5e0aa;
+    --color-border-night: #5e5e61;
+
+    --color-shadow-card: #00000018;
+
+    //-//
+
+    --font-size-top: 18px;
+    --font-size-top-title: 24px;
+
+    //-//
+
+    --padding-top: 8px;
+    --padding-top-link: 16px;
+    --padding-top-horizontal: 16px;
+
+    --padding-page: 32px;
+    --padding-page-vertical: 8px;
+
+    --padding-card: 12px;
+
+    //-//
+
+    --gap: 32px;
+
+    //-//
+
+    --margin-top-divider: 12px;
+
+    --margin-card: 12px;
+    --margin-card-title: 12px;
+
+    //-//
+
+    --border-top: 1px solid var(--color-border);
+    --border-card: 1px solid var(--color-border);
+
+    --border-radius: 4px;
+    --border-radius-snake: 8px;
+}
+
+[data-theme="darkMode"] {
+    --color-text: #d9d9d9;
+    --color-text-inactive: #979797;
+    --color-text-active: var(--color-text);
+
+    --color-background: #121212;
+    --color-background-top: #1f1f1f;
+    --color-background-card: var(--color-background);
+    --color-background-button: #3a3a3a;
+    --color-background-day: #dfc174;
+    --color-background-night: #8e8f91;
+
+    --color-border: #545454;
+    --color-border-active: #70acc7;
+    --color-border-card: #444; // #00000000;
+    --color-border-dark: #646464;
+    --color-border-day: #f5e0aa;
+    --color-border-night: #c8c8cf;
+
+    --color-shadow-card: #00000000;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    font-weight: normal;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-text);
+}
+
+h1 {
+    font-size: 24px;
+}
+
+.color-green {
+    color: #42b883;
+    font-weight: 700;
+}
+.color-blue {
+    color: #659bd3;
+    font-weight: 700;
+}
+
+.card-holder {
+    width: min-content;
+    height: min-content;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+
+    padding-left: var(--padding-page);
+    padding-right: var(--padding-page);
+    padding-top: var(--padding-page-vertical);
+    padding-bottom: var(--padding-page-vertical);
+}
+
+body,
+html {
+    min-height: 100vh;
+    min-width: 1024px;
+}
+
+body {
+    color: var(--color-text);
+    background: var(--color-background);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+        sans-serif;
+    font-size: 16px;
+    line-height: normal;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
