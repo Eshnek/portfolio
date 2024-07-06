@@ -163,7 +163,6 @@ export default {
             margin-top: var(--padding-card);
 
             width: 100%;
-            min-width: 128px;
             height: auto;
 
             border: var(--border-card);
