@@ -57,7 +57,7 @@
                 title="Git Dashboard"
             >
                 A dashboard for a Raspberry Pi to monitor project build statuses. Built with <span class="color-green">VueJS</span> and <span class="color-blue">TypeScript</span>.
-                <img src="/status.png" alt="Status Dashboard">
+                <img src="/status.png" alt="Status Dashboard" @click="openModal">
             </Card>
 
             <!-- <Card blank
@@ -126,16 +126,41 @@
             </Card> -->
         </div>
     </div>
+
+    <!-- Image Modal -->
+    <div v-if="showModal" class="modal" @click="closeModal">
+        <div class="modal-content">
+            <img src="/status.png" alt="Status Dashboard" @click.stop>
+        </div>
+    </div>
 </template>
 
 <script lang="ts">
+import { defineComponent, ref } from 'vue';
 import Card from '@/components/Card.vue';
 import Bio from '@/components/Bio.vue';
 import Snake from '@/components/Snake.vue';
 
-export default {
+export default defineComponent({
     components: { Card, Bio, Snake },
-};
+    setup() {
+        const showModal = ref(false);
+
+        const openModal = () => {
+            showModal.value = true;
+        };
+
+        const closeModal = () => {
+            showModal.value = false;
+        };
+
+        return {
+            showModal,
+            openModal,
+            closeModal
+        };
+    }
+});
 </script>
 
 <style lang="scss" scoped>
@@ -161,23 +186,31 @@ export default {
     .status-card {
         img {
             margin-top: var(--padding-card);
-
             width: 100%;
             height: auto;
-
+            object-fit: cover;
             border: var(--border-card);
             border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+
+            &:hover {
+                transform: scale(1.05);
+            }
         }
     }
 }
 
 .card-holder {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
     .card-format {
         width: 100%;
-
         grid-column: span 2;
     }
 }
+
 .format-internal {
     display: flex;
     flex-direction: column;
@@ -186,10 +219,33 @@ export default {
     .format-internal-code {
         border: 1px solid var(--color-border);
         border-radius: var(--border-radius);
-
         padding: var(--padding-card);
-
         text-align: left;
+    }
+}
+
+.modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .modal-content {
+        max-width: 90%;
+        max-height: 90%;
+
+        img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            border-radius: var(--border-radius);
+        }
     }
 }
 </style>
